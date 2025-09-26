@@ -1,11 +1,33 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
+import Hero from "../components/Hero.astro";
+import Layout from "../layouts/Layout.astro";
+import ValueProps from "../components/ValueProps.astro";
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+  <main class="pt-20 relative z-10">
+    <Hero />
+    <ValueProps />
+  </main>
 </Layout>
+
+<script>
+  // General Scroll Animation Observer
+  const animateObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+        }
+      });
+    },
+    {
+      threshold: 0.1,
+    }
+  );
+
+  const elementsToAnimate = document.querySelectorAll(".animate-on-scroll");
+  elementsToAnimate.forEach((el) => animateObserver.observe(el));
+</script>

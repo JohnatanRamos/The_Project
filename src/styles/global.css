@@ -45,7 +45,8 @@
   src: url('/fonts/poppins/poppins-v24-latin-700.woff2') format('woff2');
 }
 
-@theme {
+/* Theme Colors */
+:root {
   --color-base: #000000;
   --color-accent: #b5eae4;
   --color-primary: #54c5c5;
@@ -120,29 +121,7 @@ body {
 .gradient-text {
   background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
-.glass-card {
-  background: rgba(28, 93, 95, 0.4);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(84, 197, 197, 0.2);
-  border-radius: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(84, 197, 197, 0.2);
-}
-
-.gradient-text {
-  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
