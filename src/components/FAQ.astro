@@ -1,0 +1,59 @@
+---
+// FAQ.astro
+---
+
+<!-- FAQ Section -->
+<section id="faq" class="py-20">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold animate-on-scroll">Preguntas Frecuentes</h2>
+            <p class="text-lg text-accent mt-2 animate-on-scroll delay-100">Resolvemos tus dudas más comunes.</p>
+        </div>
+        <div class="max-w-3xl mx-auto space-y-4">
+            <details class="faq-item glass-card overflow-hidden rounded-2xl animate-on-scroll delay-100">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h3 class="font-semibold text-lg">¿Cuánto tiempo toma desarrollar un proyecto?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform duration-300 transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="bg-secondary/50 p-6 -mt-2">
+                    <p class="text-sm">El tiempo de desarrollo varía según la complejidad y el alcance del proyecto. Tras nuestra reunión inicial, te proporcionaremos un cronograma detallado y realista.</p>
+                </div>
+            </details>
+            <details class="faq-item glass-card overflow-hidden rounded-2xl animate-on-scroll delay-200">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h3 class="font-semibold text-lg">¿Qué tecnologías utilizan?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform duration-300 transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="bg-secondary/50 p-6 -mt-2">
+                    <p class="text-sm">Nos mantenemos a la vanguardia tecnológica, utilizando un stack moderno que puede incluir React, Node.js, Python, AWS, Docker y más, siempre eligiendo la herramienta adecuada para cada trabajo.</p>
+                </div>
+            </details>
+            <details class="faq-item glass-card overflow-hidden rounded-2xl animate-on-scroll delay-300">
+                <summary class="p-6 cursor-pointer flex justify-between items-center">
+                    <h3 class="font-semibold text-lg">¿Ofrecen soporte post-lanzamiento?</h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 transition-transform duration-300 transform"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </summary>
+                <div class="bg-secondary/50 p-6 -mt-2">
+                    <p class="text-sm">¡Por supuesto! Ofrecemos diversos planes de mantenimiento y soporte para asegurar que tu aplicación funcione de manera óptima y evolucione junto a tu negocio.</p>
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Animation for FAQ items */
+    details[open] svg {
+        transform: rotate(180deg);
+    }
+    
+    /* Smooth transition for the details/summary */
+    details[open] summary ~ * {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
