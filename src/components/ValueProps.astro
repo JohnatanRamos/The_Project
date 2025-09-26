@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+---
+
+<section id="value-props" class="py-24 sm:py-32 bg-gray-50 overflow-hidden font-['Poppins']">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-20 md:mb-32">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 animate-on-scroll">
+        Our Core Principles
+      </h2>
+      <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto animate-on-scroll delay-100">
+        We are guided by a commitment to excellence, innovation, and success.
+      </p>
+    </div>
+
+    <div class="relative min-h-[600px] md:min-h-[400px]">
+      <!-- Connecting Lines SVG - Hidden on mobile -->
+      <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full hidden md:block" width="800" height="400" viewBox="0 0 800 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M210 100 Q 400 150, 590 200" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="5 5"/>
+        <path d="M210 300 Q 400 250, 590 200" stroke="#e5e7eb" stroke-width="2" stroke-dasharray="5 5"/>
+      </svg>
+
+      <!-- Value Prop 1: Speed -->
+      <div class="value-prop-item md:absolute top-0 left-[15%] animate-on-scroll">
+        <div class="value-prop-circle">
+          <h3 class="text-3xl font-bold text-gray-900 group-hover:text-blue-500 transition-colors duration-300">Speed</h3>
+          <p class="mt-2 text-gray-600">Lightning-fast results in seconds.</p>
+        </div>
+      </div>
+
+      <!-- Value Prop 2: Precision -->
+      <div class="value-prop-item md:absolute top-1/2 left-1/2 transform md:-translate-x-1/2 md:-translate-y-1/2 animate-on-scroll delay-100">
+        <div class="value-prop-circle">
+          <h3 class="text-3xl font-bold text-gray-900 group-hover:text-blue-500 transition-colors duration-300">Precision</h3>
+          <p class="mt-2 text-gray-600">Accurate data you can trust.</p>
+        </div>
+      </div>
+
+      <!-- Value Prop 3: Growth -->
+      <div class="value-prop-item md:absolute bottom-0 left-[70%] animate-on-scroll delay-200">
+        <div class="value-prop-circle">
+          <h3 class="text-3xl font-bold text-gray-900 group-hover:text-blue-500 transition-colors duration-300">Growth</h3>
+          <p class="mt-2 text-gray-600">Scale beyond your expectations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
