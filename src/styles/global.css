@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 /* poppins-300 - latin */
 @font-face {
   font-display: swap;
@@ -6,6 +8,7 @@
   font-weight: 300;
   src: url('/fonts/poppins/poppins-v24-latin-300.woff2') format('woff2');
 }
+
 /* poppins-regular - latin */
 @font-face {
   font-display: swap;
@@ -14,6 +17,7 @@
   font-weight: 400;
   src: url('/fonts/poppins/poppins-v24-latin-regular.woff2') format('woff2');
 }
+
 /* poppins-500 - latin */
 @font-face {
   font-display: swap;
@@ -22,6 +26,7 @@
   font-weight: 500;
   src: url('/fonts/poppins/poppins-v24-latin-500.woff2') format('woff2');
 }
+
 /* poppins-600 - latin */
 @font-face {
   font-display: swap;
@@ -30,6 +35,7 @@
   font-weight: 600;
   src: url('/fonts/poppins/poppins-v24-latin-600.woff2') format('woff2');
 }
+
 /* poppins-700 - latin */
 @font-face {
   font-display: swap;
@@ -39,8 +45,327 @@
   src: url('/fonts/poppins/poppins-v24-latin-700.woff2') format('woff2');
 }
 
-@import "tailwindcss";
+@theme {
+  --color-base: #000000;
+  --color-accent: #b5eae4;
+  --color-primary: #54c5c5;
+  --color-secondary: #1c5d5f;
+  --color-text: #e0f2f1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: 'Poppins', sans-serif;
+  background-color: var(--color-base);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+.bg-base {
+  background-color: var(--color-base);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.border-primary {
+  border-color: var(--color-primary);
+}
+
+.border-secondary {
+  border-color: var(--color-secondary);
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-base);
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 15px rgba(84, 197, 197, 0.5);
+}
+
+.glass-card {
+  background: rgba(28, 93, 95, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(84, 197, 197, 0.2);
+  border-radius: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(84, 197, 197, 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.glass-card {
+  background: rgba(28, 93, 95, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(84, 197, 197, 0.2);
+  border-radius: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(84, 197, 197, 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+/* --- Animated Gradient Spots Background --- */
+.gradient-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.gradient-spot {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25;
+  animation: pulse-glow 20s infinite alternate;
+}
+
+.spot1 {
+  width: 50vw;
+  height: 50vw;
+  top: -20vh;
+  left: -20vw;
+  background: var(--color-primary);
+  animation-delay: 0s;
+}
+
+.spot2 {
+  width: 40vw;
+  height: 40vw;
+  bottom: -25vh;
+  right: -20vw;
+  background: var(--color-accent);
+  animation-delay: 5s;
+}
+
+.spot3 {
+  width: 35vw;
+  height: 35vw;
+  top: 40vh;
+  right: 10vw;
+  background: var(--color-secondary);
+  animation-delay: 10s;
+}
+
+@keyframes pulse-glow {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0.35;
+  }
+}
+
+/* --- Client Logo Slider --- */
+@keyframes scroll-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 40s linear infinite;
+}
+
+/* --- Animated Floating Shapes Background --- */
+.background-shapes {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.shape {
+  position: absolute;
+  list-style: none;
+  display: block;
+  background: rgba(84, 197, 197, 0.15);
+  animation: float 25s linear infinite;
+  bottom: -180px;
+}
+
+.shape:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.shape:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.shape:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.shape:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.shape:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.shape:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.shape:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.shape:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.shape:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.shape:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 20%;
+  }
+
+  100% {
+    transform: translateY(-120vh) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
+  }
+}
+
+/* --- Scroll Animations --- */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 {
+  transition-delay: 100ms;
+}
+
+.delay-200 {
+  transition-delay: 200ms;
+}
+
+.delay-300 {
+  transition-delay: 300ms;
+}
+
+.delay-400 {
+  transition-delay: 400ms;
+}
+
+.delay-600 {
+  transition-delay: 600ms;
+}
+
+/* --- Dynamic Process Section Styles --- */
+#timeline-progress {
+  transition: height 0.4s ease-out;
 }
