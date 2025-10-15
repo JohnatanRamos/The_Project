@@ -1,0 +1,157 @@
+<section>
+  <!-- Title Section -->
+  <div class="text-center mb-12 fade-in-up">
+    <!-- <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#54C5C5] to-[#B5EAE4] bg-clip-text text-transparent">
+      Conversaciones Inteligentes en Tiempo Real
+    </h2> -->
+    <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+      Observa cómo nuestro asistente inteligente automatiza ventas en tiempo real y brinda soporte instantáneo 24/7
+    </p>
+  </div>
+
+  <!-- Phone Mockup -->
+  <div class="relative fade-in-up">
+    <div class="phone-mockup w-[300px] mx-auto relative">
+      <div
+        class="bg-gradient-to-br from-[rgba(28,93,95,0.6)] to-[rgba(0,0,0,0.8)] border-[3px] border-[rgba(84,197,197,0.3)] rounded-[2rem] p-4 shadow-[0_20px_60px_rgba(84,197,197,0.2)]"
+      >
+        <div class="bg-[#0a0a0a] rounded-3xl p-4 h-[500px] overflow-hidden">
+          <div class="chat-bubble bot mb-3" style="animation-delay: 0.5s">
+            ¡Hola! 👋 ¿En qué puedo ayudarte hoy?
+          </div>
+          <div class="chat-bubble user mb-3" style="animation-delay: 1.5s">
+            ¿Tienen disponible el producto X?
+          </div>
+          <div class="chat-bubble bot mb-3" style="animation-delay: 2.5s">
+            ¡Sí! Tenemos 15 unidades en stock. El precio es $299. ¿Te gustaría
+            hacer el pedido?
+          </div>
+          <div class="chat-bubble user mb-3" style="animation-delay: 3.5s">Sí, quiero 2 unidades</div>
+          <div class="chat-bubble bot mb-3" style="animation-delay: 4.5s">
+            Perfecto! 🎉 Total: $598<br />
+            ¿A qué dirección lo enviamos?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Floating Phone Mockup */
+  .hero-visual {
+    position: relative;
+    margin-top: 3rem;
+    animation: fadeInUp 0.8s ease-out 1s both;
+  }
+
+  .phone-mockup {
+    width: 300px;
+    margin: 0 auto;
+    position: relative;
+    animation: floatmobile 6s ease-in-out infinite;
+  }
+
+  @keyframes floatmobile {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .phone-frame {
+    background: linear-gradient(
+      145deg,
+      rgba(28, 93, 95, 0.6),
+      rgba(0, 0, 0, 0.8)
+    );
+    border: 3px solid rgba(84, 197, 197, 0.3);
+    border-radius: 2rem;
+    padding: 1rem;
+    box-shadow: 0 20px 60px rgba(84, 197, 197, 0.2);
+  }
+
+  .phone-screen {
+    background: #0a0a0a;
+    border-radius: 1.5rem;
+    padding: 1rem;
+    height: 500px;
+    overflow: hidden;
+  }
+
+  /* Chat Bubbles Animation */
+  .chat-bubble {
+    background: rgba(84, 197, 197, 0.2);
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    opacity: 0;
+    animation: messageAppear 0.6s ease-out forwards;
+    transform-origin: left center;
+  }
+
+  .chat-bubble.bot {
+    background: linear-gradient(
+      135deg,
+      rgba(84, 197, 197, 0.3),
+      rgba(181, 234, 228, 0.2)
+    );
+    margin-right: 2rem;
+    border-bottom-left-radius: 0.2rem;
+    animation: messageAppearLeft 0.6s ease-out forwards;
+  }
+
+  .chat-bubble.user {
+    background: rgba(28, 93, 95, 0.4);
+    margin-left: 2rem;
+    text-align: right;
+    border-bottom-right-radius: 0.2rem;
+    animation: messageAppearRight 0.6s ease-out forwards;
+    transform-origin: right center;
+  }
+
+  /* Bot message animation (from left) */
+  @keyframes messageAppearLeft {
+    0% {
+      opacity: 0;
+      transform: translateX(-30px) scale(0.8);
+    }
+    60% {
+      transform: translateX(5px) scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  /* User message animation (from right) */
+  @keyframes messageAppearRight {
+    0% {
+      opacity: 0;
+      transform: translateX(30px) scale(0.8);
+    }
+    60% {
+      transform: translateX(-5px) scale(1.02);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @keyframes messageAppear {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
