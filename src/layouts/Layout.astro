@@ -4,6 +4,7 @@ import Header from "../components/shared/Header.astro";
 import Footer from "../components/shared/Footer.astro";
 import AnimatedGradientBackground from "../components/shared/AnimatedGradientBackground.astro";
 import AnimatedFloatingShapes from "../components/shared/AnimatedFloatingShapes.astro";
+import FloatingWppButton from "../components/shared/FloatingWppButton.astro";
 
 interface Props {
   title?: string;
@@ -29,6 +30,7 @@ const { title = "Novalux - Transformando ideas en realidades digitales", descrip
     <AnimatedFloatingShapes />
     <slot />
     <Footer />
+    <FloatingWppButton />
   </body>
 </html>
 
