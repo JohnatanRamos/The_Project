@@ -93,16 +93,47 @@ body {
   border-color: var(--color-secondary);
 }
 
+/* Base button styles */
+.btn {
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Button size variants */
+.btn-sm {
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+}
+
+.btn-lg {
+  padding: 1rem 2.5rem;
+  font-size: 1.125rem;
+}
+
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-base);
-  transition: all 0.3s ease;
-  font-weight: 600;
 }
 
 .btn-primary:hover {
   background-color: var(--color-accent);
   box-shadow: 0 0 15px rgba(84, 197, 197, 0.5);
+}
+
+.btn-secondary {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  background-color: transparent;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-primary);
+  color: var(--color-base);
 }
 
 .glass-card {
