@@ -1,0 +1,141 @@
+---
+// Guarantee section
+---
+
+<section class="py-20 md:py-24 relative overflow-hidden">
+    <div class="container mx-auto px-6 max-w-[1200px]">
+        <div class="relative">
+            <!-- Main guarantee card -->
+            <div class="glass-card p-8 md:p-12 lg:p-16 animate-on-scroll">
+                <div class="max-w-[900px] mx-auto">
+                    <!-- Badge and shield icon -->
+                    <div class="flex flex-col items-center mb-8">
+                        <div class="guarantee-badge relative mb-6">
+                            <svg class="w-24 h-24 md:w-28 md:h-28 text-primary drop-shadow-glow" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                            </svg>
+                            <div class="guarantee-pulse"></div>
+                        </div>
+                        <div class="inline-block bg-primary/20 border border-primary/50 rounded-full px-6 py-2 mb-4">
+                            <span class="text-primary font-semibold text-sm md:text-base">100% GARANTIZADO</span>
+                        </div>
+                    </div>
+
+                    <!-- Main heading -->
+                    <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mb-6 text-center leading-tight">
+                        Garantía de <span class="gradient-text">30 Días</span>
+                    </h2>
+
+                    <!-- Main guarantee text -->
+                    <p class="text-lg md:text-xl text-accent leading-relaxed text-center mb-8 font-light">
+                        Si en 30 días no estás 100% satisfecho con tu bot, te devolvemos cada centavo. Sin preguntas, sin letra pequeña.
+                    </p>
+
+                    <!-- Trust indicators -->
+                    <div class="grid md:grid-cols-3 gap-6 mt-12">
+                        <div class="flex flex-col items-center text-center p-4">
+                            <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-3">
+                                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-white mb-2">Sin Preguntas</h3>
+                            <p class="text-sm text-accent/80">Proceso simple y directo</p>
+                        </div>
+
+                        <div class="flex flex-col items-center text-center p-4">
+                            <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-3">
+                                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-white mb-2">100% Reembolso</h3>
+                            <p class="text-sm text-accent/80">Devolución completa garantizada</p>
+                        </div>
+
+                        <div class="flex flex-col items-center text-center p-4">
+                            <div class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-3">
+                                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="font-semibold text-white mb-2">Cero Riesgo</h3>
+                            <p class="text-sm text-accent/80">Tu inversión está protegida</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Decorative elements -->
+            <div class="guarantee-glow-left"></div>
+            <div class="guarantee-glow-right"></div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .drop-shadow-glow {
+        filter: drop-shadow(0 0 20px rgba(84, 197, 197, 0.4));
+    }
+
+    .guarantee-badge {
+        position: relative;
+        animation: float-badge 3s ease-in-out infinite;
+    }
+
+    .guarantee-pulse {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border: 2px solid var(--color-primary);
+        border-radius: 50%;
+        animation: pulse-ring 2s ease-out infinite;
+    }
+
+    @keyframes float-badge {
+        0%, 100% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes pulse-ring {
+        0% {
+            transform: translate(-50%, -50%) scale(0.8);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1.8);
+            opacity: 0;
+        }
+    }
+
+    .guarantee-glow-left,
+    .guarantee-glow-right {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        filter: blur(100px);
+        opacity: 0.15;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .guarantee-glow-left {
+        background: var(--color-primary);
+        top: -100px;
+        left: -150px;
+    }
+
+    .guarantee-glow-right {
+        background: var(--color-accent);
+        bottom: -100px;
+        right: -150px;
+    }
+</style>
