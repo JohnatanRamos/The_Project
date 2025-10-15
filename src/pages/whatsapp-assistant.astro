@@ -1,5 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Hero from "../components/whatsapp-assistant/Hero.astro";
+import ProblemSolution from "../components/whatsapp-assistant/ProblemSolution.astro";
+import Features from "../components/whatsapp-assistant/Features.astro";
+import Pricing from "../components/whatsapp-assistant/Pricing.astro";
+import Guarantee from "../components/whatsapp-assistant/Guarantee.astro";
+import PhoneMockup from "../components/whatsapp-assistant/PhoneMockup.astro";
+import CTA from "../components/whatsapp-assistant/CTA.astro";
+import FAQ from "../components/whatsapp-assistant/FAQ.astro";
 
 // Page metadata
 export const prerender = true;
@@ -10,5 +18,13 @@ const pageDescription = "Servicio profesional de creación de asistentes para Wh
 <Layout title={pageTitle} description={pageDescription}>
   
   <main class="pt-20 relative z-10" >
+    <Hero />
+    <PhoneMockup />
+    <ProblemSolution />
+    <Features />
+    <Pricing />
+    <Guarantee /> 
+    <FAQ />
+    <CTA />
   </main>
 </Layout>
