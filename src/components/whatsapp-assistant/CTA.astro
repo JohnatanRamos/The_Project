@@ -1,5 +1,8 @@
 ---
-// CTA.astro
+import data from "../../config/phone_messages.json";
+
+const phone = data.phone_number;
+const chatbots = encodeURIComponent(data.chatbots);
 ---
 
 <!-- CTA Section -->
@@ -7,8 +10,8 @@
     <div class="container mx-auto px-6">
         <div class="glass-card p-10 md:p-16 rounded-3xl text-center animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Listo para <span class="gradient-text">automatizar</span> tu WhatsApp?</h2>
-            <p class="text-lg text-accent mb-8 max-w-2xl mx-auto">Únete a las 50+ empresas que ya atienden clientes mientras duermen.</p>
-            <a href="mailto:admin@novalux.com.co" class="btn btn-lg btn-primary">Agendar consulta gratuita de 15 min</a>
+            <p class="text-lg text-accent mb-8 max-w-2xl mx-auto">Únete a las 17+ empresas que ya atienden clientes mientras duermen.</p>
+            <a href={`https://wa.me/${phone}?text=${chatbots}`} target="_blank" class="btn btn-lg btn-primary">Agendar consulta gratuita de 15 min</a>
         </div>
     </div>
 </section>

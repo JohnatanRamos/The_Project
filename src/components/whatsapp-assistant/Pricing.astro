@@ -1,5 +1,8 @@
 ---
-// Pricing section with plans
+import data from "../../config/phone_messages.json";
+
+const phone = data.phone_number;
+const chatbots = encodeURIComponent(data.chatbots);
 ---
 
 <section id="precios" class="py-20 md:py-24 bg-secondary/10">
@@ -107,7 +110,7 @@
             </ul>
           </div>
 
-          <a href="#contacto" class="btn btn-primary w-full text-lg mt-4">
+          <a href={`https://wa.me/${phone}?text=${chatbots}`} target="_blank" class="btn btn-primary w-full text-lg mt-4">
             📞 Agendar consulta gratuita de 15 min
           </a>
           <p class="mt-4 text-sm text-accent opacity-70">
@@ -142,7 +145,7 @@
           </div>
           <div>
             <div class="text-4xl md:text-5xl font-bold text-primary mb-2">
-              &lt;2 seg
+              &lt;1 min
             </div>
             <p class="text-accent text-sm md:text-base">
               Tiempo de respuesta promedio vs 2-4 horas humano
