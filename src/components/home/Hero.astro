@@ -1,5 +1,10 @@
 --- 
 import "../../styles/global.css";
+import data from "../../config/phone_messages.json";
+
+const phone = data.phone_number;
+const demo = encodeURIComponent(data.demo);
+const chatbots = encodeURIComponent(data.chatbots);
 ---
 
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -12,8 +17,8 @@ import "../../styles/global.css";
         Chatbots inteligentes que responden consultas, cierran ventas y atienden clientes mientras duermes. Desde $150/mes.
        </p>
        <div class="flex justify-center space-x-4 animate-on-scroll delay-200">
-           <a href="#services" class="btn btn-primary">Ver demo en vivo</a>
-           <a href="#contact" class="btn btn-secondary">Agendar consulta gratuita</a>
+           <a href={`https://wa.me/${phone}?text=${demo}`} target="_blank" class="btn btn-primary">Ver demo en vivo</a>
+           <a href={`https://wa.me/${phone}?text=${chatbots}`} target="_blank" class="btn btn-secondary">Agendar consulta gratuita</a>
        </div>
    </div>
 </section>

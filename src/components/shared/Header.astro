@@ -1,4 +1,8 @@
 --- 
+import data from "../../config/phone_messages.json";
+
+const phone = data.phone_number;
+const default_message = encodeURIComponent(data.default_message);
 ---
 
 <header class="bg-secondary/50 backdrop-blur-lg fixed w-full top-0 z-50">
@@ -9,7 +13,7 @@
         <div class="hidden md:flex space-x-8 items-center">
             <a href="ecommerce" class="hover:text-primary transition-colors duration-300">Tiendas Online</a>
             <a href="whatsapp-assistant" class="hover:text-primary transition-colors duration-300">Asistentes WhatsApp</a>
-            <a href="#contact" class="btn btn-sm btn-primary">Contáctanos</a>
+            <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="btn btn-sm btn-primary">Contáctanos</a>
         </div>
         <div class="md:hidden">
             <button id="menu-btn" class="focus:outline-none">
@@ -21,7 +25,7 @@
     <div id="mobile-menu" class="hidden md:hidden">
          <a href="ecommerce" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Tiendas Online</a>
          <a href="whatsapp-assistant" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Asistentes WhatsApp</a>
-         <a href="#contact" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Contáctanos</a>
+         <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Contáctanos</a>
     </div>
 </header>
 

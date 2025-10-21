@@ -2,5 +2,7 @@
     "phone_number": "573003953980",
     "web_page": "Hola, estoy interesado en sus servicios de páginas web. ¿Podrían proporcionarme más información?",
     "default_message": "Hola, estoy interesado en sus servicios. ¿Podrían proporcionarme más información?",
-    "bulk_messages": "Hola, estoy interesado en sus servicios de mensajes masivos por WhatsApp. ¿Podrían proporcionarme más información?"
+    "bulk_messages": "Hola, estoy interesado en sus servicios de mensajes masivos por WhatsApp. ¿Podrían proporcionarme más información?",
+    "chatbots": "Hola, estoy interesado en sus servicios de chatbots con IA. ¿Podrían proporcionarme más información?",
+    "demo": "Hola, quiero ver la demostración del chatbot con IA. ¿Podrían proporcionarme más información?"
 }
