@@ -64,7 +64,7 @@
             </div>
 
             <!-- Step 4 -->
-            <div class="timeline-step relative mb-12">
+            <div class="timeline-step relative mb-0">
                 <div class="md:flex items-center md:flex-row-reverse md:space-x-reverse md:space-x-8">
                     <div class="flex-shrink-0 w-full md:w-1/2">
                          <div class="flex items-center justify-start space-x-4 md:space-x-0">
@@ -81,38 +81,39 @@
             </div>
         </div>
     </div>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const timeline = document.getElementById('timeline');
-    if (timeline) {
-        const timelineSteps = document.querySelectorAll('.timeline-step');
-        const timelineProgress = document.getElementById('timeline-progress');
-        
-        if (timelineProgress) {
-            const timelineObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Set active step
-                        timelineSteps.forEach(step => step.classList.remove('is-active'));
-                        entry.target.classList.add('is-active');
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const timeline = document.getElementById('timeline');
+        if (timeline) {
+            const timelineSteps = document.querySelectorAll('.timeline-step');
+            const timelineProgress = document.getElementById('timeline-progress');
+            
+            if (timelineProgress) {
+                const timelineObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Set active step
+                            timelineSteps.forEach(step => step.classList.remove('is-active'));
+                            entry.target.classList.add('is-active');
 
-                        // Update progress bar height
-                        const dot = entry.target.querySelector('.timeline-dot') as HTMLElement;
-                        if (dot) {
-                            const timelineTop = timeline.getBoundingClientRect().top;
-                            const dotTop = dot.getBoundingClientRect().top;
-                            const newHeight = dotTop - timelineTop + (dot.offsetHeight / 2);
-                            timelineProgress.style.height = `${newHeight}px`;
+                            // Update progress bar height
+                            const dot = entry.target.querySelector('.timeline-dot') as HTMLElement;
+                            if (dot) {
+                                const timelineTop = timeline.getBoundingClientRect().top;
+                                const dotTop = dot.getBoundingClientRect().top;
+                                const newHeight = dotTop - timelineTop + (dot.offsetHeight / 2);
+                                timelineProgress.style.height = `${newHeight}px`;
+                            }
                         }
-                    }
+                    });
+                }, {
+                    rootMargin: '-50% 0px -50% 0px', // Activate when step is in the vertical center
+                    threshold: 0
                 });
-            }, {
-                rootMargin: '-50% 0px -50% 0px', // Activate when step is in the vertical center
-                threshold: 0
-            });
 
-            timelineSteps.forEach(step => timelineObserver.observe(step));
+                timelineSteps.forEach(step => timelineObserver.observe(step));
+            }
         }
-    }
-  });
-</script>
+    });
+    </script>
+</section>

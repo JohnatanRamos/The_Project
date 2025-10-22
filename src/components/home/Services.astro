@@ -7,7 +7,7 @@ const bulk_messages = encodeURIComponent(data.bulk_messages);
 ---
 
 <!-- Services Section -->
-<section id="services" class="py-20">
+<section id="services" class="py-20 lg:pt-0">
   <div class="container mx-auto px-6">
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold animate-on-scroll">
@@ -49,16 +49,18 @@ const bulk_messages = encodeURIComponent(data.bulk_messages);
           al mundo.
         </p>
 
-        <a href={`https://wa.me/${phone}?text=${web_page}`}
-        target="_blank" class="btn btn-sm btn-primary w-full mt-6">
+        <a
+          href={`https://wa.me/${phone}?text=${web_page}`}
+          target="_blank"
+          class="btn btn-sm btn-primary w-full mt-6"
+        >
           Cotizar ahora
         </a>
       </div>
 
       <!-- Service Card 2: Asistentes WhatsApp (DESTACADO) -->
       <div
-        class="glass-card card animate-on-scroll delay-200"
-        style="transform: scale(1.10); border: 1px solid #b5eae4;"
+        class="glass-card card animate-on-scroll delay-200 row-start-1 md:row-auto most-popular-card"
       >
         <div class="popular-badge">⭐ MÁS POPULAR</div>
         <div class="bg-secondary p-4 rounded-full mb-4">
@@ -82,7 +84,8 @@ const bulk_messages = encodeURIComponent(data.bulk_messages);
           Asistentes WhatsApp
         </h3>
         <p class="text-sm">
-          Ofrece atención instantánea con chatbots inteligentes que responden, asesoran y venden por ti.
+          Ofrece atención instantánea con chatbots inteligentes que responden,
+          asesoran y venden por ti.
         </p>
         <a
           href="/whatsapp-assistant"
@@ -94,8 +97,7 @@ const bulk_messages = encodeURIComponent(data.bulk_messages);
 
       <!-- Service Card 3: Tiendas Online / Ecommerce -->
       <div
-        class="glass-card card animate-on-scroll delay-300"
-        style="transform: scale(1.10); border: 1px solid #b5eae4;"
+        class="glass-card card animate-on-scroll delay-300 row-start-2 md:row-auto mt-10 md:mt-0 most-popular-card"
       >
         <div class="popular-badge">⭐ MÁS POPULAR</div>
         <div class="bg-secondary p-4 rounded-full mb-4">
@@ -122,7 +124,8 @@ const bulk_messages = encodeURIComponent(data.bulk_messages);
           Tiendas Online / Ecommerce
         </h3>
         <p class="text-sm">
-          Lleva tu negocio al siguiente nivel con una tienda online moderna, segura y lista para vender desde el primer día.
+          Lleva tu negocio al siguiente nivel con una tienda online moderna,
+          segura y lista para vender desde el primer día.
         </p>
         <a href="/ecommerce" class="btn btn-sm btn-primary w-full mt-6">
           Ver más
@@ -156,8 +159,11 @@ const bulk_messages = encodeURIComponent(data.bulk_messages);
         <p class="text-sm">
           Impulsa tus ventas enviando mensajes masivos que realmente conectan.
         </p>
-        <a href={`https://wa.me/${phone}?text=${bulk_messages}`}
-        target="_blank" class="btn btn-sm btn-primary w-full mt-6">
+        <a
+          href={`https://wa.me/${phone}?text=${bulk_messages}`}
+          target="_blank"
+          class="btn btn-sm btn-primary w-full mt-6"
+        >
           Cotizar ahora
         </a>
       </div>
@@ -241,5 +247,10 @@ const bulk_messages = encodeURIComponent(data.bulk_messages);
   .featured-service:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 40px rgba(84, 197, 197, 0.4);
+  }
+
+  .most-popular-card {
+    transform: scale(1.1);
+    border: 1px solid #b5eae4;
   }
 </style>

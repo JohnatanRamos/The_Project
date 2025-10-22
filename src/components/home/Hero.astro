@@ -7,7 +7,7 @@ const demo = encodeURIComponent(data.demo);
 const chatbots = encodeURIComponent(data.chatbots);
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<section class="relative flex items-center justify-center overflow-hidden" style="min-height: calc(100vh - 84px)">
 
    <div class="container mx-auto px-6 text-center z-20">
        <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-on-scroll">
@@ -16,7 +16,7 @@ const chatbots = encodeURIComponent(data.chatbots);
        <p class="text-lg md:text-xl max-w-3xl mx-auto text-accent mb-8 animate-on-scroll delay-100 ">
         Chatbots inteligentes que responden consultas, cierran ventas y atienden clientes mientras duermes. Desde $150/mes.
        </p>
-       <div class="flex justify-center space-x-4 animate-on-scroll delay-200">
+       <div class="flex justify-center flex-col md:flex-row gap-2 md:gap-0 md:space-x-4 animate-on-scroll delay-200">
            <a href={`https://wa.me/${phone}?text=${demo}`} target="_blank" class="btn btn-primary">Ver demo en vivo</a>
            <a href={`https://wa.me/${phone}?text=${chatbots}`} target="_blank" class="btn btn-secondary">Agendar consulta gratuita</a>
        </div>
