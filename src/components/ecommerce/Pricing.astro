@@ -1,0 +1,222 @@
+---
+import data from "../../config/phone_messages.json";
+
+const phone = data.phone_number;
+const online_stores = encodeURIComponent(data.online_stores);
+---
+
+<section id="precios" class="py-20 md:py-24 bg-secondary/10">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12 animate-on-scroll">
+      <h2 class="text-[clamp(2rem,4vw,3rem)] font-bold mb-4">
+        Inversión en tu <span class="gradient-text">futuro digital</span>
+      </h2>
+      <p class="text-lg md:text-xl text-accent opacity-90">
+        Un solo plan, todo incluido • Sin sorpresas ni letra pequeña
+      </p>
+    </div>
+
+    <div class="max-w-[700px] mx-auto">
+      <div
+        class="glass-card text-center p-8 md:p-12 relative overflow-hidden animate-on-scroll delay-100"
+      >
+        <!-- Glow effect -->
+        <div class="glow-effect"></div>
+
+        <div class="relative z-10">
+          <div class="pricing-badge">📲 Tienda Online Completa</div>
+
+          <div class="mb-8">
+            <div class="text-xl text-accent mb-2">Mensualidad</div>
+            <div class="text-6xl md:text-7xl font-extrabold leading-none mb-2">
+              $30<span class="text-2xl font-normal text-accent">/mes</span>
+            </div>
+            <p class="text-accent opacity-80 text-sm md:text-base">
+              Después de la implementación inicial
+            </p>
+          </div>
+
+          <div class="border-t border-primary/20 pt-8 mt-8">
+            <div class="text-xl text-accent mb-4">
+              Implementación Personalizada
+            </div>
+            <div class="text-4xl md:text-5xl font-bold mb-2">Desde $500</div>
+            <p class="text-accent opacity-80 text-sm md:text-base mb-8">
+              El precio final depende de la complejidad de tu proyecto
+            </p>
+          </div>
+
+          <div class="features-box">
+            <h4 class="text-lg font-semibold mb-6 text-center text-accent">
+              ✨ Todo incluido en tu tienda:
+            </h4>
+            <ul class="features-grid">
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Disponible 24/7 para recibir pedidos</span>
+              </li>
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Integración con pasarelas de pago seguras</span>
+              </li>
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Adaptable a cualquier dispositivo</span>
+              </li>
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Panel de control con métricas</span>
+              </li>
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Panel fácil de administrar</span>
+              </li>
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Diseño moderno y rápido</span>
+              </li>
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Capacitación en vivo de 2 horas</span>
+              </li>
+              <li class="feature-item">
+                <span class="text-primary text-xl">✓</span>
+                <span>Sin contratos ni costos ocultos</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="implementation-details">
+            <h4 class="text-base font-semibold mb-4 text-accent">
+              💰 El costo de tu tienda online puede variar según:
+            </h4>
+            <ul class="text-sm md:text-base text-accent opacity-90 space-y-2">
+              <li class="pl-6 relative">
+                <span class="absolute left-0">•</span>
+                Nivel de personalización del diseño y funcionalidades especiales
+              </li>
+              <li class="pl-6 relative">
+                <span class="absolute left-0">•</span>
+                Alcance de la tienda (carrito, login, pasarela, etc.)
+              </li>
+              <li class="pl-6 relative">
+                <span class="absolute left-0">•</span>
+                Páginas y secciones que se incluyan en el desarrollo
+              </li>
+              <li class="pl-6 relative">
+                <span class="absolute left-0">•</span>
+                Funciones que quieras habilitar en tu tienda online
+              </li>
+            </ul>
+          </div>
+
+          <a href={`https://wa.me/${phone}?text=${online_stores}`} target="_blank" class="btn btn-primary w-full text-lg mt-4">
+            📞 Agendar consulta gratuita de 15 min
+          </a>
+          <p class="mt-4 text-sm text-accent opacity-70">
+            Te daremos un precio exacto sin compromiso
+          </p>
+        </div>
+      </div>
+
+      <!-- Value Proposition Below -->
+      <div class="mt-12 md:mt-16 text-center animate-on-scroll delay-200">
+        <h3 class="text-2xl md:text-3xl font-bold mb-6 text-accent">
+          💡 ¿Vale la pena la inversión?
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center">
+          <div>
+            <div class="text-4xl md:text-5xl font-bold text-primary mb-2">
+              $3,000+
+            </div>
+            <p class="text-accent text-sm md:text-base">
+              Costo mensual promedio de un vendedor o local físico
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl md:text-5xl font-bold text-primary mb-2">
+              24/7
+            </div>
+            <p class="text-accent text-sm md:text-base">
+              Tu tienda online vende sin horarios, festivos ni descansos
+            </p>
+          </div>
+          <div>
+            <div class="text-4xl md:text-5xl font-bold text-primary mb-2">
+              +60%
+            </div>
+            <p class="text-accent text-sm md:text-base">
+              De los consumidores prefieren comprar en línea por comodidad
+            </p>
+          </div>
+        </div>
+        <p class="mt-8 text-lg md:text-xl text-accent">
+          <strong>En resumen:</strong> Ahorras millones en personal, amplías tu alcance y generas ventas automáticas incluso mientras duermes.
+          <span class="text-white font-semibold">Tu tienda se paga sola.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .glow-effect {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+      circle,
+      rgba(84, 197, 197, 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .pricing-badge {
+    display: inline-block;
+    background: linear-gradient(
+      90deg,
+      var(--color-primary),
+      var(--color-accent)
+    );
+    color: var(--color-base);
+    padding: 0.5rem 1.5rem;
+    border-radius: 2rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .features-box {
+    background: rgba(84, 197, 197, 0.1);
+    border-radius: 1rem;
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: left;
+  }
+
+  .features-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: start;
+    gap: 0.5rem;
+  }
+
+  .implementation-details {
+    background: rgba(181, 234, 228, 0.1);
+    border: 1px solid rgba(84, 197, 197, 0.3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    text-align: left;
+  }
+</style>
