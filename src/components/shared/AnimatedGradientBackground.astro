@@ -1,6 +1,47 @@
 <!-- Animated Gradient Background -->
 <div class="gradient-background">
-    <div class="gradient-spot spot1"></div>
-    <div class="gradient-spot spot2"></div>
-    <div class="gradient-spot spot3"></div>
+  <div class="gradient-spot spot1 w-[100vw] h-[100vw] md:w-[50vw] md:h-[50vw]"></div>
+  <div class="gradient-spot spot2 w-[90vw] h-[90vw] md:w-[40vw] md:h-[40vw]" ></div>
+  <div class="gradient-spot spot3 w-[85vw] h-[85vw] md:w-[35vw] md:h-[35vw]"></div>
 </div>
+
+<style>
+  /* --- Animated Gradient Spots Background --- */
+  .gradient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .gradient-spot {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.25;
+    animation: pulse-glow 20s infinite alternate;
+  }
+  .spot1 {
+    top: -20vh;
+    left: -20vw;
+    background: var(--color-primary);
+    animation-delay: 0s;
+  }
+
+  .spot2 {
+    bottom: -25vh;
+    right: -20vw;
+    background: var(--color-accent);
+    animation-delay: 5s;
+  }
+
+  .spot3 {
+    top: 40vh;
+    right: 10vw;
+    background: var(--color-secondary);
+    animation-delay: 10s;
+  }
+</style>

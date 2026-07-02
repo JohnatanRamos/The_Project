@@ -12,7 +12,6 @@ const default_message = encodeURIComponent(data.default_message);
         </a>
         <div class="hidden md:flex space-x-8 items-center">
             <a href="ecommerce" class="hover:text-primary transition-colors duration-300">Tiendas Online</a>
-            <a href="whatsapp-assistant" class="hover:text-primary transition-colors duration-300">Asistentes WhatsApp</a>
             <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="btn btn-sm btn-primary">Contáctanos</a>
         </div>
         <div class="md:hidden">
@@ -24,7 +23,6 @@ const default_message = encodeURIComponent(data.default_message);
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden">
          <a href="ecommerce" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Tiendas Online</a>
-         <a href="whatsapp-assistant" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Asistentes WhatsApp</a>
          <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Contáctanos</a>
     </div>
 </header>
