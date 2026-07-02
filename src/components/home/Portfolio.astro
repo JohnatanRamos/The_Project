@@ -1,33 +1,49 @@
 ---
-// Portfolio.astro — Proof section with link to ecommerce service
+// Testimonials section.
+// TODO: reemplazar todos los PLACEHOLDERs con citas, nombres y métricas reales antes de pautar.
 ---
 
 <section class="py-20 px-4 md:px-6">
-  <div class="container mx-auto max-w-4xl">
+  <div class="container mx-auto max-w-5xl">
 
-    <div class="text-center mb-10 animate-on-scroll">
-      <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3">Nuestro trabajo</p>
+    <div class="text-center mb-12 animate-on-scroll">
+      <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3">Resultados reales</p>
       <h2 class="text-3xl md:text-4xl font-bold">
-        Tiendas que <span class="gradient-text">venden solas</span>
+        Lo que dicen <span class="gradient-text">nuestros clientes</span>
       </h2>
     </div>
 
-    <div class="glass-card p-8 md:p-12 animate-on-scroll delay-100">
-      <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+    <!-- TODO: reemplazar PLACEHOLDERs con citas, nombres y métricas reales antes de pautar -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-        <div class="flex-1">
-          <p class="text-lg text-accent leading-relaxed mb-6">
-            Uno de nuestros clientes pasaba horas respondiendo pedidos en WhatsApp. Implementamos su tienda y hoy el mismo volumen de pedidos se procesa solo — sin que nadie tenga que estar respondiendo mensaje por mensaje para cerrar una venta.
-          </p>
-          <a href="/ecommerce" class="btn btn-primary">Ver tiendas online</a>
+      <!-- Testimonio 1 -->
+      <div class="glass-card p-8 animate-on-scroll delay-100 flex flex-col gap-6">
+        <blockquote class="text-accent leading-relaxed text-base flex-1">
+          "[PLACEHOLDER — cita real y textual del cliente, máximo 30 palabras]"
+        </blockquote>
+        <div class="border-t border-primary/20 pt-5">
+          <p class="font-semibold text-white text-sm">[Nombre], [Cargo]</p>
+          <p class="text-sm mt-0.5" style="color: rgba(181,234,228,0.6)">[Tipo de negocio, ciudad]</p>
+          <p class="text-primary font-bold mt-3 text-sm">[Métrica: ej. "+35% en conversión en 60 días"]</p>
         </div>
-
-        <div class="flex-shrink-0 text-center min-w-[120px]">
-          <div class="text-5xl md:text-6xl font-extrabold text-primary mb-1">24/7</div>
-          <p class="text-accent text-sm leading-tight">ventas sin<br />intervención manual</p>
-        </div>
-
       </div>
+
+      <!-- Testimonio 2 -->
+      <div class="glass-card p-8 animate-on-scroll delay-200 flex flex-col gap-6">
+        <blockquote class="text-accent leading-relaxed text-base flex-1">
+          "[PLACEHOLDER — cita real y textual del cliente, máximo 30 palabras]"
+        </blockquote>
+        <div class="border-t border-primary/20 pt-5">
+          <p class="font-semibold text-white text-sm">[Nombre], [Cargo]</p>
+          <p class="text-sm mt-0.5" style="color: rgba(181,234,228,0.6)">[Tipo de negocio, ciudad]</p>
+          <p class="text-primary font-bold mt-3 text-sm">[Métrica: ej. "+40% en ventas el primer mes"]</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-10 animate-on-scroll delay-300">
+      <a href="/ecommerce" class="btn btn-secondary">Ver tiendas online</a>
     </div>
 
   </div>

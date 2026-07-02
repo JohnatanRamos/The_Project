@@ -1,23 +1,25 @@
 ---
 import "../../styles/global.css";
-import data from "../../config/phone_messages.json";
-
-const phone = data.phone_number;
-const default_message = encodeURIComponent(data.default_message);
 ---
 
 <section class="relative flex items-center justify-center overflow-hidden" style="min-height: calc(100vh - 84px)">
+  <div class="container mx-auto px-6 text-center z-20">
 
-   <div class="container mx-auto px-6 text-center z-20">
-       <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-on-scroll">
-        Tu pauta trae clientes. Tu negocio, <span class="gradient-text">¿los está perdiendo?</span>
-       </h1>
-       <p class="text-lg md:text-xl max-w-3xl mx-auto text-accent mb-8 animate-on-scroll delay-100">
-        Si ya inviertes en anuncios pero los mensajes se acumulan sin respuesta, el problema no es tu pauta: es que no tienes un sistema detrás.
-       </p>
-       <div class="flex justify-center flex-col md:flex-row gap-3 md:gap-0 md:space-x-4 animate-on-scroll delay-200">
-           <a href="#diagnostico" class="btn btn-primary">Ver mi diagnóstico</a>
-           <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="btn btn-secondary">Agendar consulta</a>
-       </div>
-   </div>
+    <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-4 animate-on-scroll">
+      Para negocios que ya pautan y ya venden
+    </p>
+
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 animate-on-scroll delay-100">
+      Tu tienda recibe tráfico pero <span class="gradient-text">no vende lo que debería</span>
+    </h1>
+
+    <p class="text-lg md:text-xl max-w-3xl mx-auto text-accent mb-10 animate-on-scroll delay-200">
+      Auditamos y rediseñamos tiendas online para que cada peso que inviertes en pauta se convierta en ventas, no en visitas perdidas.
+    </p>
+
+    <div class="flex justify-center animate-on-scroll delay-300">
+      <a href="#diagnostico" class="btn btn-primary">Ver mi diagnóstico</a>
+    </div>
+
+  </div>
 </section>
