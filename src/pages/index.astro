@@ -3,22 +3,22 @@ import Hero from "../components/home/Hero.astro";
 import Layout from "../layouts/Layout.astro";
 import Diagnostic from "../components/home/Diagnostic.astro";
 import ValueProps from "../components/home/ValueProps.astro";
-import Portfolio from "../components/home/Portfolio.astro";
 import InvestmentStats from "../components/shared/InvestmentStats.astro";
 import Process from "../components/home/Process.astro";
 import FAQ from "../components/home/FAQ.astro";
 import CTA from "../components/home/CTA.astro";
+
+const pageTitle = "Novalux - Tiendas online";
+const pageDescription =
+  "Servicio profesional de creación de tiendas online. Aumentas tus ventas con una tienda online.";
 ---
 
-<Layout>
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- <Diagnostic /> -->
   <main class="pt-20 relative z-10">
     <Hero />
-    <Diagnostic />
     <ValueProps />
-    <Portfolio />
     <InvestmentStats />
-    <!-- <Services /> -->
-    <!-- <Clients /> -->
     <Process />
     <FAQ />
     <CTA />
