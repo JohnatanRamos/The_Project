@@ -1,0 +1,326 @@
+---
+// Includes component: Shows what's included in the e-commerce package.
+// Interactive list + dynamic image panel: selecting an item swaps the preview
+// image inside a fixed-size container (desktop) or expands it inline as an
+// accordion right under the item (mobile).
+import customDesignImg from "../../assets/includes/custom-desing.jpeg";
+import safePaymentImg from "../../assets/includes/2.png";
+import inventoryImg from "../../assets/includes/inventory.jpeg";
+import responsiveImg from "../../assets/includes/responsive.jpeg";
+import transportImg from "../../assets/includes/transport-removebg-preview.png";
+
+interface Feature {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+  image: string;
+}
+
+const rawFeatures = [
+  {
+    id: "diseno-personalizado",
+    icon: "🎨",
+    title: "Diseño Personalizado",
+    description:
+      "Diseño único que refleja tu marca y está optimizado para convertir visitantes en compradores.",
+    source: customDesignImg,
+  },
+  {
+    id: "pagos-seguros",
+    icon: "💳",
+    title: "Pagos Seguros",
+    description:
+      "Integración con 2 pasarelas de pago (Wompi, PayU, Mercado Pago o la que prefieras).",
+    source: safePaymentImg,
+  },
+  {
+    id: "gestion-inventario",
+    icon: "📦",
+    title: "Gestión de Inventario",
+    description:
+      "Control automático de stock, alertas de productos agotados y actualizaciones en tiempo real.",
+    source: inventoryImg,
+  },
+  {
+    id: "responsive",
+    icon: "📱",
+    title: "100% Responsive",
+    description:
+      "Se ve perfecto en celular, tablet y computadora. +70% de tus ventas serán desde móvil.",
+    source: responsiveImg,
+  },
+  {
+    id: "envios-automaticos",
+    icon: "🚚",
+    title: "Envíos Automáticos",
+    description:
+      "Integración con transportadoras, cálculo automático de costos y envío gratis configurable.",
+    source: transportImg,
+  },
+];
+
+const features: Feature[] = rawFeatures.map(({ source, ...feature }) => ({
+  ...feature,
+  image: source.src,
+}));
+
+const first = features[0];
+---
+
+<section class="py-20 px-6 pt-10 md:pt-20">
+  <div class="container mx-auto max-w-6xl">
+    <!-- Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">
+        Todo lo que necesitas <span class="gradient-text">incluido</span>
+      </h2>
+      <p class="text-lg text-accent">
+        Tienda lista para vender desde el día 1
+      </p>
+    </div>
+
+    <!-- List + dynamic panel -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-start animate-on-scroll">
+      <!-- List -->
+      <div class="flex flex-col gap-2">
+        {features.map((feature, index) => (
+          <div class="ecom-feature-item">
+            <button
+              type="button"
+              id={`ecom-trigger-${feature.id}`}
+              class:list={["ecom-feature-trigger", { "is-active": index === 0 }]}
+              aria-expanded={index === 0 ? "true" : "false"}
+              aria-controls={`ecom-mobile-panel-${feature.id}`}
+              data-feature-id={feature.id}
+              data-image={feature.image}
+              data-title={feature.title}
+            >
+              <span class="ecom-feature-icon" aria-hidden="true">{feature.icon}</span>
+              <span class="ecom-feature-copy">
+                <span class="ecom-feature-title">{feature.title}</span>
+                <span class="ecom-feature-desc">{feature.description}</span>
+              </span>
+              <span class="ecom-feature-arrow" aria-hidden="true">→</span>
+            </button>
+
+            <!-- Mobile accordion: this item's image expands right below it -->
+            <div
+              id={`ecom-mobile-panel-${feature.id}`}
+              class:list={["ecom-mobile-panel", { "is-open": index === 0 }]}
+              aria-hidden={index === 0 ? "false" : "true"}
+            >
+              <div class="ecom-mobile-panel-inner">
+                <div class="ecom-panel-media">
+                  <img src={feature.image} alt={feature.title} loading="lazy" />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!--
+        Desktop panel (hidden below md, shown from md up): one fixed-size
+        container reused for every item — only its image swaps in place.
+        Dimensions: aspect-ratio 4:5, capped at 340x425px (see .ecom-panel-media).
+      -->
+      <div
+        id="ecomDesktopPanel"
+        class="hidden md:block"
+        aria-live="polite"
+        aria-label={`Vista previa: ${first.title}`}
+      >
+        <div class="ecom-panel-media">
+          <img id="ecomPanelImg" src={first.image} alt={first.title} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ecom-feature-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 0.875rem 0.75rem 1rem;
+    background: rgba(28, 93, 95, 0.25);
+    border: 1px solid rgba(84, 197, 197, 0.15);
+    border-left: 3px solid transparent;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .ecom-feature-trigger:hover {
+    background: rgba(28, 93, 95, 0.4);
+    border-color: rgba(84, 197, 197, 0.3);
+  }
+
+  .ecom-feature-trigger:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  .ecom-feature-trigger.is-active {
+    background: rgba(28, 93, 95, 0.55);
+    border-color: rgba(84, 197, 197, 0.3);
+    border-left-color: var(--color-primary);
+  }
+
+  .ecom-feature-icon {
+    flex-shrink: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    background: var(--color-secondary);
+    border-radius: 0.625rem;
+  }
+
+  .ecom-feature-copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .ecom-feature-title {
+    font-weight: 700;
+    font-size: 0.9375rem;
+    color: var(--color-white);
+  }
+
+  .ecom-feature-desc {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: var(--color-accent);
+  }
+
+  .ecom-feature-arrow {
+    flex-shrink: 0;
+    align-self: center;
+    font-size: 1.125rem;
+    color: rgba(181, 234, 228, 0.4);
+    transition: transform 0.25s ease, color 0.25s ease;
+  }
+
+  .ecom-feature-trigger.is-active .ecom-feature-arrow {
+    color: var(--color-primary);
+    transform: translateX(4px);
+  }
+
+  /* Shared image panel structure (desktop panel + mobile accordion panel) */
+  .ecom-panel-media {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 4 / 5;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: rgba(28, 93, 95, 0.4);
+    border: 1px solid rgba(84, 197, 197, 0.2);
+    /* Outer shadow lifts the image off the dark background */
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .ecom-panel-media img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Inner vignette softens the hard crop and blends the edges into the card */
+  .ecom-panel-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.45);
+    border-radius: inherit;
+  }
+
+  /* Desktop panel: cross-fade when the active item changes */
+  #ecomDesktopPanel .ecom-panel-media {
+    transition: opacity 0.25s ease;
+  }
+
+  #ecomDesktopPanel.is-fading .ecom-panel-media {
+    opacity: 0;
+  }
+
+  /* Mobile accordion: grid-template-rows 0fr -> 1fr animates height with no layout jump */
+  .ecom-mobile-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+
+  .ecom-mobile-panel.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .ecom-mobile-panel-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .ecom-mobile-panel .ecom-panel-media {
+    margin-top: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .ecom-mobile-panel {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const triggers = document.querySelectorAll<HTMLButtonElement>(".ecom-feature-trigger");
+  const desktopPanel = document.getElementById("ecomDesktopPanel");
+  const desktopImg = document.getElementById("ecomPanelImg") as HTMLImageElement | null;
+
+  function activate(id: string) {
+    let activeTrigger: HTMLButtonElement | null = null;
+
+    triggers.forEach((trigger) => {
+      const isActive = trigger.dataset.featureId === id;
+      trigger.classList.toggle("is-active", isActive);
+      trigger.setAttribute("aria-expanded", String(isActive));
+      if (isActive) activeTrigger = trigger;
+
+      const mobilePanel = document.getElementById(trigger.getAttribute("aria-controls") ?? "");
+      mobilePanel?.classList.toggle("is-open", isActive);
+      mobilePanel?.setAttribute("aria-hidden", String(!isActive));
+    });
+
+    if (!activeTrigger || !desktopPanel || !desktopImg) return;
+
+    const { image = "", title = "" } = activeTrigger.dataset;
+
+    desktopPanel.classList.add("is-fading");
+    window.setTimeout(() => {
+      desktopImg.src = image;
+      desktopImg.alt = title;
+      desktopPanel.setAttribute("aria-label", `Vista previa: ${title}`);
+      desktopPanel.classList.remove("is-fading");
+    }, 200);
+  }
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const id = trigger.dataset.featureId;
+      if (id) activate(id);
+    });
+  });
+</script>

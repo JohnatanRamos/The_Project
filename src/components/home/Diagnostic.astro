@@ -1,5 +1,5 @@
 ---
-// Diagnostic.astro — Store conversion calculator (floating modal)
+// Diagnostic.astro — Quiz de calificación + valor (fuga de chats sin responder)
 // Webhook: set PUBLIC_NOVALUX_DIAGNOSTIC_WEBHOOK_URL in your .env file
 ---
 
@@ -22,100 +22,131 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
 
-    <div class="text-center mb-8">
+    <div class="text-center mb-6">
       <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3" id="diagModalTitle">Diagnóstico gratuito</p>
-      <h2 class="text-2xl md:text-3xl font-bold mb-2">
-        ¿Cuántas ventas está <span class="gradient-text">perdiendo tu tienda?</span>
-      </h2>
-      <p class="text-accent text-sm">3 preguntas. Resultado en 30 segundos.</p>
+      <p class="text-accent text-sm">6 preguntas. Tu diagnóstico personalizado.</p>
     </div>
 
     <div class="diag-card p-6 md:p-8" id="diagCard">
 
       <!-- Progress -->
-      <div class="diag-progress mb-2" aria-hidden="true">
+      <div class="diag-progress mb-2" aria-hidden="true" id="diagProgressWrap">
         <div class="diag-progress-bar" id="diagProgressBar"></div>
       </div>
-      <p class="text-xs text-right mb-6" style="color: rgba(181,234,228,0.5)" id="diagStepLabel">Pregunta 1 de 3</p>
+      <p class="text-xs text-right mb-6" style="color: rgba(181,234,228,0.5)" id="diagStepLabel">Paso 1 de 6</p>
 
-      <!-- Q1: tráfico diario desde anuncios -->
+      <!-- Paso 1: calificación -->
       <div class="diag-step" id="diag-step-0">
-        <p class="diag-question">¿Cuántas visitas llegan a tu tienda desde tus anuncios cada día?</p>
+        <p class="diag-question">¿Actualmente inviertes en pauta paga en Meta o Instagram Ads?</p>
         <div class="diag-options">
-          <button class="diag-option" data-step="0" data-value="25">Menos de 50</button>
-          <button class="diag-option" data-step="0" data-value="125">Entre 50 y 200</button>
-          <button class="diag-option" data-step="0" data-value="350">Entre 200 y 500</button>
-          <button class="diag-option" data-step="0" data-value="750">Más de 500</button>
+          <button class="diag-option" data-step="0" data-value="si">Sí</button>
+          <button class="diag-option" data-step="0" data-value="no">No</button>
         </div>
       </div>
 
-      <!-- Q2: tasa de conversión actual -->
+      <!-- Paso 2: volumen de chats -->
       <div class="diag-step diag-hidden" id="diag-step-1">
-        <p class="diag-question">De cada 100 visitas, ¿cuántas terminan en compra?</p>
-        <div class="diag-options">
-          <button class="diag-option" data-step="1" data-value="0.005">Menos de 1 de cada 100</button>
-          <button class="diag-option" data-step="1" data-value="0.015">Entre 1 y 2 de cada 100</button>
-          <button class="diag-option" data-step="1" data-value="0.03">Entre 2 y 4 de cada 100</button>
-          <button class="diag-option" data-step="1" data-value="0.05">Más de 4 de cada 100</button>
-        </div>
+        <form id="diagFormStep1" novalidate>
+          <p class="diag-question">¿Cuántos chats te llegan al día por WhatsApp, aproximadamente?</p>
+          <input id="diagChatsLlegan" type="number" inputmode="numeric" min="0" step="1" class="diag-input mb-2" placeholder="Ej: 40" required />
+          <p class="diag-error-msg diag-hidden" id="diagChatsLleganError">Ingresa un número válido (0 o más).</p>
+          <div class="diag-nav-row">
+            <button type="button" class="diag-back-btn" data-back="0">← Atrás</button>
+            <button type="submit" class="btn btn-primary">Siguiente</button>
+          </div>
+        </form>
       </div>
 
-      <!-- Q3: recuperación de carrito -->
+      <!-- Paso 3: chats respondidos -->
       <div class="diag-step diag-hidden" id="diag-step-2">
-        <p class="diag-question">¿Tu tienda tiene recuperación de carrito abandonado configurada?</p>
+        <form id="diagFormStep2" novalidate>
+          <p class="diag-question">¿Cuántos de esos alcanzas a responder al día?</p>
+          <input id="diagChatsRespondidos" type="number" inputmode="numeric" min="0" step="1" class="diag-input mb-2" placeholder="Ej: 25" required />
+          <p class="diag-error-msg diag-hidden" id="diagChatsRespondidosError">Ingresa un número válido (0 o más).</p>
+          <p class="diag-warning-msg diag-hidden" id="diagChatsRespondidosWarning">¿Seguro? Este número parece más alto que los chats que dijiste que te llegan.</p>
+          <div class="diag-nav-row">
+            <button type="button" class="diag-back-btn" data-back="1">← Atrás</button>
+            <button type="submit" class="btn btn-primary">Siguiente</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Paso 4: ventas cerradas -->
+      <div class="diag-step diag-hidden" id="diag-step-3">
+        <form id="diagFormStep3" novalidate>
+          <p class="diag-question">¿Cuántas ventas cierras en promedio al día por WhatsApp?</p>
+          <input id="diagVentasCerradas" type="number" inputmode="numeric" min="0" step="1" class="diag-input mb-2" placeholder="Ej: 5" required />
+          <p class="diag-error-msg diag-hidden" id="diagVentasCerradasError">Ingresa un número válido (0 o más).</p>
+          <p class="diag-warning-msg diag-hidden" id="diagVentasCerradasWarning">¿Seguro? Este número parece más alto que los chats que dijiste que alcanzas a responder.</p>
+          <div class="diag-nav-row">
+            <button type="button" class="diag-back-btn" data-back="2">← Atrás</button>
+            <button type="submit" class="btn btn-primary">Siguiente</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Paso 5: ticket promedio -->
+      <div class="diag-step diag-hidden" id="diag-step-4">
+        <p class="diag-question">¿Cuál es tu ticket promedio de venta?</p>
         <div class="diag-options">
-          <button class="diag-option" data-step="2" data-value="no">No tengo / no sé si está activa</button>
-          <button class="diag-option" data-step="2" data-value="yes">Sí, está configurada y activa</button>
+          <button class="diag-option" data-step="4" data-value="menos_50k">Menos de $50.000</button>
+          <button class="diag-option" data-step="4" data-value="50k_150k">$50.000 – $150.000</button>
+          <button class="diag-option" data-step="4" data-value="150k_300k">$150.000 – $300.000</button>
+          <button class="diag-option" data-step="4" data-value="mas_300k">Más de $300.000</button>
+        </div>
+        <div class="diag-nav-row diag-nav-row-solo">
+          <button type="button" class="diag-back-btn" data-back="3">← Atrás</button>
         </div>
       </div>
 
-      <!-- Captura de datos -->
-      <div class="diag-step diag-hidden" id="diag-step-3">
-        <p class="diag-question">Tu diagnóstico está listo. ¿A dónde te lo enviamos?</p>
-        <form id="diagForm" novalidate class="mt-4">
+      <!-- Paso 6: contacto -->
+      <div class="diag-step diag-hidden" id="diag-step-5">
+        <form id="diagFormContact" novalidate>
+          <p class="diag-question">¿A dónde te enviamos tu resultado?</p>
           <div class="mb-4">
-            <label class="diag-label" for="diagName">Nombre</label>
-            <input id="diagName" type="text" class="diag-input" placeholder="Tu nombre" autocomplete="name" required />
+            <label class="diag-label" for="diagNombre">Nombre</label>
+            <input id="diagNombre" type="text" class="diag-input" placeholder="Tu nombre" autocomplete="name" required />
           </div>
           <div class="mb-4">
-            <label class="diag-label" for="diagPhone">Número de celular</label>
-            <input id="diagPhone" type="tel" class="diag-input" placeholder="+57 300 000 0000" autocomplete="tel" required />
+            <label class="diag-label" for="diagCorreo">Correo</label>
+            <input id="diagCorreo" type="email" class="diag-input" placeholder="tu@correo.com" autocomplete="email" required />
+            <p class="diag-error-msg diag-hidden" id="diagCorreoError">Ingresa un correo válido.</p>
           </div>
           <div class="mb-6">
-            <label class="diag-label" for="diagContact">
-              Email <span style="color: rgba(181,234,228,0.45); font-weight: 400;">(opcional)</span>
-            </label>
-            <input id="diagContact" type="email" class="diag-input" placeholder="tu@correo.com" autocomplete="email" />
+            <label class="diag-label" for="diagTelefono">Teléfono / WhatsApp</label>
+            <div class="diag-phone-row">
+              <select id="diagCountryCode" class="diag-input diag-country-select" aria-label="Código de país">
+                <option value="+57" selected>🇨🇴 +57</option>
+                <option value="+52">🇲🇽 +52</option>
+                <option value="+54">🇦🇷 +54</option>
+                <option value="+56">🇨🇱 +56</option>
+                <option value="+51">🇵🇪 +51</option>
+                <option value="+593">🇪🇨 +593</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+34">🇪🇸 +34</option>
+              </select>
+              <input id="diagTelefono" type="tel" inputmode="numeric" class="diag-input" placeholder="300 000 0000" autocomplete="tel" required />
+            </div>
+            <p class="diag-error-msg diag-hidden" id="diagTelefonoError">Ingresa un número de teléfono válido.</p>
           </div>
-          <button type="submit" id="diagSubmitBtn" class="btn btn-primary" style="width:100%">
-            Ver mi resultado
-          </button>
-          <p class="text-xs text-center mt-3" style="color: rgba(181,234,228,0.45)">Sin spam. Solo tu diagnóstico.</p>
+          <div class="diag-nav-row">
+            <button type="button" class="diag-back-btn" data-back="4">← Atrás</button>
+            <button type="submit" id="diagSubmitBtn" class="btn btn-primary">Ver mi resultado</button>
+          </div>
         </form>
       </div>
 
       <!-- Resultado -->
-      <div class="diag-step diag-hidden" id="diag-step-4">
+      <div class="diag-step diag-hidden" id="diag-step-6">
         <div class="text-center">
-          <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3">Ventas perdidas al mes</p>
-          <div class="text-7xl font-extrabold mb-2" style="color:#ffffff" id="diagResultNumber">—</div>
-          <p class="text-accent mb-6 text-base">ventas que tu tienda podría estar convirtiendo</p>
-          <p class="text-sm text-left rounded-xl p-4 mb-6 leading-relaxed" style="background:rgba(28,93,95,0.5); color:rgba(181,234,228,0.85)" id="diagResultInsight"></p>
-          <a id="diagResultCTA" href="#" target="_blank" class="btn btn-primary" style="width:100%; display:block">
-            Quiero recuperar esas ventas
-          </a>
-          <p class="text-xs mt-4" style="color: rgba(181,234,228,0.45)">Te contactamos en menos de 2 horas</p>
-        </div>
-      </div>
-
-      <!-- Error de envío -->
-      <div class="diag-step diag-hidden" id="diag-step-error">
-        <div class="text-center">
-          <div class="text-6xl font-extrabold mb-2" style="color:#ffffff" id="diagResultNumberAlt">—</div>
-          <p class="text-accent mb-6">ventas perdidas al mes</p>
-          <a id="diagResultCTAAlt" href="#" target="_blank" class="btn btn-primary" style="width:100%; display:block">
-            Hablar con un asesor
-          </a>
+          <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-4">Tu diagnóstico</p>
+          <p class="diag-result-text" id="diagResultText"></p>
+          <div id="diagResultCTAWrap" class="diag-hidden">
+            <a id="diagResultCTA" href="#" target="_blank" class="btn btn-primary" style="width:100%; display:block">Agenda tu sesión de 15 min</a>
+          </div>
+          <div id="diagResultNoCTAWrap" class="diag-hidden">
+            <p class="diag-no-cta-msg">Guarda este número — cuando actives pauta, esta fuga va a crecer. Te avisamos cuando tengamos cupo para negocios en tu etapa.</p>
+          </div>
         </div>
       </div>
 
@@ -238,7 +269,7 @@
     height: 100%;
     background: linear-gradient(90deg, #b5eae4, #54c5c5);
     border-radius: 9999px;
-    width: 33%;
+    width: 16.66%;
     transition: width 0.4s ease;
   }
 
@@ -283,6 +314,12 @@
     outline: none;
   }
 
+  .diag-option-selected {
+    background: rgba(84, 197, 197, 0.22);
+    border-color: #54c5c5;
+    color: #ffffff;
+  }
+
   /* ── Form ── */
   .diag-label {
     display: block;
@@ -311,20 +348,133 @@
   .diag-input:focus { outline: none; border-color: #54c5c5; }
   .diag-input.diag-error { border-color: #f87171; }
 
+  /* ── Phone row ── */
+  .diag-phone-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .diag-country-select {
+    flex: 0 0 92px;
+    padding-left: 0.5rem;
+    padding-right: 0.25rem;
+    cursor: pointer;
+  }
+
+  .diag-phone-row .diag-input:last-child {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ── Nav row (back / next) ── */
+  .diag-nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .diag-nav-row-solo {
+    justify-content: flex-start;
+  }
+
+  .diag-nav-row .btn {
+    flex: 1;
+  }
+
+  .diag-back-btn {
+    background: none;
+    border: none;
+    color: rgba(181, 234, 228, 0.6);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    font-family: 'Poppins', sans-serif;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .diag-back-btn:hover { color: #b5eae4; }
+
+  /* ── Messages ── */
+  .diag-error-msg {
+    color: #f87171;
+    font-size: 0.8125rem;
+    margin-top: 0.5rem;
+  }
+
+  .diag-warning-msg {
+    color: #fbbf24;
+    font-size: 0.8125rem;
+    margin-top: 0.5rem;
+  }
+
+  /* ── Result ── */
+  .diag-result-text {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    text-align: left;
+    color: rgba(224, 242, 241, 0.9);
+    background: rgba(28, 93, 95, 0.5);
+    border-radius: 0.875rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .diag-result-text strong { color: #ffffff; }
+
+  .diag-no-cta-msg {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(181, 234, 228, 0.75);
+  }
+
   .diag-hidden { display: none; }
 </style>
 
 <script>
   const WEBHOOK_URL: string = (import.meta.env.PUBLIC_NOVALUX_DIAGNOSTIC_WEBHOOK_URL as string) ?? '';
   const PHONE = '573003953980';
-  const BENCHMARK_RATE = 0.025;
+  const TOTAL_STEPS = 6;
+  const STEP_IDS = ['diag-step-0', 'diag-step-1', 'diag-step-2', 'diag-step-3', 'diag-step-4', 'diag-step-5', 'diag-step-6'];
 
-  const answers = { visits: 0, rate: 0, cartRecovery: '' };
+  type Answers = {
+    pautaActiva: boolean | null;
+    chatsLlegan: number | null;
+    chatsRespondidos: number | null;
+    ventasCerradas: number | null;
+    ticketRango: string;
+    nombre: string;
+    correo: string;
+    telefono: string;
+  };
+
+  const answers: Answers = {
+    pautaActiva: null,
+    chatsLlegan: null,
+    chatsRespondidos: null,
+    ventasCerradas: null,
+    ticketRango: '',
+    nombre: '',
+    correo: '',
+    telefono: '',
+  };
+
   let currentStep = 0;
 
-  const STEP_IDS = ['diag-step-0', 'diag-step-1', 'diag-step-2', 'diag-step-3', 'diag-step-4', 'diag-step-error'];
-  const PROGRESS = ['33%', '66%', '100%', '100%', '100%', '100%'];
-  const LABELS = ['Pregunta 1 de 3', 'Pregunta 2 de 3', 'Pregunta 3 de 3', 'Ya casi…', '', ''];
+  function highlightSelected(n: number) {
+    const stepEl = document.getElementById(STEP_IDS[n]);
+    if (!stepEl) return;
+    const value = n === 0
+      ? (answers.pautaActiva === null ? '' : (answers.pautaActiva ? 'si' : 'no'))
+      : n === 4 ? answers.ticketRango : null;
+    if (value === null) return;
+    stepEl.querySelectorAll<HTMLButtonElement>('.diag-option').forEach((btn) => {
+      btn.classList.toggle('diag-option-selected', btn.dataset.value === value);
+    });
+  }
 
   function showStep(n: number) {
     STEP_IDS.forEach((id, i) => {
@@ -332,23 +482,48 @@
     });
     const bar = document.getElementById('diagProgressBar');
     const label = document.getElementById('diagStepLabel');
-    if (bar) bar.style.width = PROGRESS[n] ?? '100%';
-    if (label) label.textContent = LABELS[n] ?? '';
+    const progressWrap = document.getElementById('diagProgressWrap');
+    if (n < TOTAL_STEPS) {
+      if (bar) bar.style.width = `${Math.round(((n + 1) / TOTAL_STEPS) * 100)}%`;
+      if (label) label.textContent = `Paso ${n + 1} de ${TOTAL_STEPS}`;
+      progressWrap?.classList.remove('diag-hidden');
+      label?.classList.remove('diag-hidden');
+    } else {
+      progressWrap?.classList.add('diag-hidden');
+      label?.classList.add('diag-hidden');
+    }
     currentStep = n;
+    highlightSelected(n);
   }
 
   function resetDiag() {
-    answers.visits = 0;
-    answers.rate = 0;
-    answers.cartRecovery = '';
-    const nameEl = document.getElementById('diagName') as HTMLInputElement | null;
-    const phoneEl = document.getElementById('diagPhone') as HTMLInputElement | null;
-    const contactEl = document.getElementById('diagContact') as HTMLInputElement | null;
-    if (nameEl) { nameEl.value = ''; nameEl.classList.remove('diag-error'); }
-    if (phoneEl) { phoneEl.value = ''; phoneEl.classList.remove('diag-error'); }
-    if (contactEl) { contactEl.value = ''; contactEl.classList.remove('diag-error'); }
-    const btn = document.getElementById('diagSubmitBtn') as HTMLButtonElement | null;
-    if (btn) { btn.textContent = 'Ver mi resultado'; btn.disabled = false; }
+    answers.pautaActiva = null;
+    answers.chatsLlegan = null;
+    answers.chatsRespondidos = null;
+    answers.ventasCerradas = null;
+    answers.ticketRango = '';
+    answers.nombre = '';
+    answers.correo = '';
+    answers.telefono = '';
+
+    ['diagChatsLlegan', 'diagChatsRespondidos', 'diagVentasCerradas', 'diagNombre', 'diagCorreo', 'diagTelefono'].forEach((id) => {
+      const el = document.getElementById(id) as HTMLInputElement | null;
+      if (el) { el.value = ''; el.classList.remove('diag-error'); }
+    });
+
+    const countryEl = document.getElementById('diagCountryCode') as HTMLSelectElement | null;
+    if (countryEl) countryEl.value = '+57';
+
+    ['diagChatsLleganError', 'diagChatsRespondidosError', 'diagVentasCerradasError', 'diagCorreoError', 'diagTelefonoError',
+      'diagChatsRespondidosWarning', 'diagVentasCerradasWarning'].forEach((id) => {
+      document.getElementById(id)?.classList.add('diag-hidden');
+    });
+
+    document.querySelectorAll('.diag-option').forEach((btn) => btn.classList.remove('diag-option-selected'));
+
+    const submitBtn = document.getElementById('diagSubmitBtn') as HTMLButtonElement | null;
+    if (submitBtn) { submitBtn.textContent = 'Ver mi resultado'; submitBtn.disabled = false; }
+
     showStep(0);
   }
 
@@ -363,87 +538,205 @@
     resetDiag();
   }
 
-  function calcLostSales(): number {
-    if (answers.rate >= BENCHMARK_RATE) return 0;
-    const cartFactor = answers.cartRecovery === 'no' ? 1.25 : 1.0;
-    return Math.max(Math.round(answers.visits * 30 * (BENCHMARK_RATE - answers.rate) * cartFactor), 0);
+  function parseIntOrNull(value: string): number | null {
+    if (value.trim() === '') return null;
+    const n = Number(value);
+    if (!Number.isInteger(n) || n < 0) return null;
+    return n;
   }
 
-  function buildInsight(lost: number): string {
-    const rateLabels: Record<string, string> = {
-      '0.005': 'menos del 1%',
-      '0.015': 'entre el 1% y 2%',
-      '0.03': 'entre el 2% y 4%',
-      '0.05': 'más del 4%',
-    };
-    const rateLabel = rateLabels[String(answers.rate)] ?? 'tu tasa actual';
+  function buildMetrics() {
+    const llegan = answers.chatsLlegan ?? 0;
+    const respondidos = answers.chatsRespondidos ?? 0;
+    const ventas = answers.ventasCerradas ?? 0;
+    const chatsSinRespuestaDia = Math.max(0, llegan - respondidos);
+    const chatsSinRespuestaMes = chatsSinRespuestaDia * 30;
+    const tasaCierre = respondidos > 0 ? Math.round((ventas / respondidos) * 100) : null;
+    return { chatsSinRespuestaDia, chatsSinRespuestaMes, tasaCierre };
+  }
 
-    if (lost <= 0) {
-      return `Tu tasa de conversión está por encima del promedio de la industria (2–3%). Aun así, optimizaciones en velocidad, checkout y recuperación de carrito pueden seguir mejorando tus resultados.`;
+  function renderResult() {
+    const { chatsSinRespuestaDia, chatsSinRespuestaMes, tasaCierre } = buildMetrics();
+    const textEl = document.getElementById('diagResultText');
+    if (textEl) {
+      textEl.innerHTML = tasaCierre === null
+        ? `Con base en tus respuestas: todos los días se te quedan <strong>${chatsSinRespuestaDia}</strong> chats sin ninguna respuesta — conversaciones que ya pagaste con pauta y ni siquiera alcanzas a abrir.`
+        : `Con base en tus respuestas: todos los días se te quedan <strong>${chatsSinRespuestaDia}</strong> chats sin ninguna respuesta — conversaciones que ya pagaste con pauta y ni siquiera alcanzas a abrir. Al mes, son aproximadamente <strong>${chatsSinRespuestaMes}</strong> conversaciones perdidas. De lo que sí respondes, cierras el <strong>${tasaCierre}%</strong> — así que la fuga no está en cómo vendes, está en lo que ni siquiera llegas a tocar.`;
     }
 
-    const cartMsg = answers.cartRecovery === 'no'
-      ? 'Sin recuperación de carrito activa, esos compradores que abandonaron simplemente no regresan.'
-      : 'Aunque tienes recuperación de carrito, hay margen para optimizar el embudo de compra.';
-
-    return `Con ${answers.visits} visitas diarias desde tus anuncios y una conversión de ${rateLabel}, tu tienda podría estar perdiendo aproximadamente ${lost} ventas al mes frente al promedio de la industria. ${cartMsg}`;
+    const ctaWrap = document.getElementById('diagResultCTAWrap');
+    const noCtaWrap = document.getElementById('diagResultNoCTAWrap');
+    if (answers.pautaActiva) {
+      const waText = encodeURIComponent('Hola, acabo de ver mi diagnóstico y quiero agendar mi sesión');
+      const ctaLink = document.getElementById('diagResultCTA') as HTMLAnchorElement | null;
+      if (ctaLink) ctaLink.href = `https://wa.me/${PHONE}?text=${waText}`;
+      ctaWrap?.classList.remove('diag-hidden');
+      noCtaWrap?.classList.add('diag-hidden');
+    } else {
+      ctaWrap?.classList.add('diag-hidden');
+      noCtaWrap?.classList.remove('diag-hidden');
+    }
   }
 
   // Open / close
   document.getElementById('diagOpenBtn')?.addEventListener('click', openModal);
+  document.getElementById('heroDiagBtn')?.addEventListener('click', openModal);
+  document.getElementById('ctaDiagBtn')?.addEventListener('click', openModal);
   document.getElementById('diagCloseBtn')?.addEventListener('click', closeModal);
   document.getElementById('diagBackdrop')?.addEventListener('click', closeModal);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-  // Step navigation
+  // Step 1 & 5: option buttons + back buttons (event delegation)
   document.getElementById('diagCard')?.addEventListener('click', (e) => {
-    const btn = (e.target as Element).closest<HTMLElement>('.diag-option');
-    if (!btn) return;
-    const step = Number(btn.dataset.step ?? -1);
-    const value = btn.dataset.value ?? '';
-    if (step === 0 && currentStep === 0) { answers.visits = Number(value); showStep(1); }
-    else if (step === 1 && currentStep === 1) { answers.rate = Number(value); showStep(2); }
-    else if (step === 2 && currentStep === 2) { answers.cartRecovery = value; showStep(3); }
+    const target = e.target as Element;
+
+    const optionBtn = target.closest<HTMLElement>('.diag-option');
+    if (optionBtn) {
+      const step = Number(optionBtn.dataset.step ?? -1);
+      const value = optionBtn.dataset.value ?? '';
+      if (step === 0 && currentStep === 0) {
+        answers.pautaActiva = value === 'si';
+        showStep(1);
+      } else if (step === 4 && currentStep === 4) {
+        answers.ticketRango = value;
+        showStep(5);
+      }
+      return;
+    }
+
+    const backBtn = target.closest<HTMLElement>('.diag-back-btn');
+    if (backBtn) {
+      const back = Number(backBtn.dataset.back ?? -1);
+      if (back >= 0) showStep(back);
+    }
   });
 
-  // Form submit
-  document.getElementById('diagForm')?.addEventListener('submit', async (e) => {
+  // Paso 2: chats que llegan
+  document.getElementById('diagFormStep1')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('diagChatsLlegan') as HTMLInputElement;
+    const errorEl = document.getElementById('diagChatsLleganError');
+    const value = parseIntOrNull(input.value);
+    if (value === null) {
+      input.classList.add('diag-error');
+      errorEl?.classList.remove('diag-hidden');
+      return;
+    }
+    input.classList.remove('diag-error');
+    errorEl?.classList.add('diag-hidden');
+    answers.chatsLlegan = value;
+    showStep(2);
+  });
+
+  // Paso 3: chats respondidos
+  const chatsRespondidosInput = document.getElementById('diagChatsRespondidos') as HTMLInputElement | null;
+  chatsRespondidosInput?.addEventListener('input', () => {
+    const warning = document.getElementById('diagChatsRespondidosWarning');
+    const value = Number(chatsRespondidosInput.value);
+    const llegan = answers.chatsLlegan ?? 0;
+    const show = chatsRespondidosInput.value.trim() !== '' && Number.isInteger(value) && value > llegan;
+    warning?.classList.toggle('diag-hidden', !show);
+  });
+
+  document.getElementById('diagFormStep2')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('diagChatsRespondidos') as HTMLInputElement;
+    const errorEl = document.getElementById('diagChatsRespondidosError');
+    const value = parseIntOrNull(input.value);
+    if (value === null) {
+      input.classList.add('diag-error');
+      errorEl?.classList.remove('diag-hidden');
+      return;
+    }
+    input.classList.remove('diag-error');
+    errorEl?.classList.add('diag-hidden');
+    answers.chatsRespondidos = value;
+    showStep(3);
+  });
+
+  // Paso 4: ventas cerradas
+  const ventasCerradasInput = document.getElementById('diagVentasCerradas') as HTMLInputElement | null;
+  ventasCerradasInput?.addEventListener('input', () => {
+    const warning = document.getElementById('diagVentasCerradasWarning');
+    const value = Number(ventasCerradasInput.value);
+    const respondidos = answers.chatsRespondidos ?? 0;
+    const show = ventasCerradasInput.value.trim() !== '' && Number.isInteger(value) && value > respondidos;
+    warning?.classList.toggle('diag-hidden', !show);
+  });
+
+  document.getElementById('diagFormStep3')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('diagVentasCerradas') as HTMLInputElement;
+    const errorEl = document.getElementById('diagVentasCerradasError');
+    const value = parseIntOrNull(input.value);
+    if (value === null) {
+      input.classList.add('diag-error');
+      errorEl?.classList.remove('diag-hidden');
+      return;
+    }
+    input.classList.remove('diag-error');
+    errorEl?.classList.add('diag-hidden');
+    answers.ventasCerradas = value;
+    showStep(4);
+  });
+
+  // Paso 6: contacto + envío
+  document.getElementById('diagFormContact')?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const nameEl = document.getElementById('diagName') as HTMLInputElement | null;
-    const phoneEl = document.getElementById('diagPhone') as HTMLInputElement | null;
-    const contactEl = document.getElementById('diagContact') as HTMLInputElement | null;
+    const nombreEl = document.getElementById('diagNombre') as HTMLInputElement;
+    const correoEl = document.getElementById('diagCorreo') as HTMLInputElement;
+    const telefonoEl = document.getElementById('diagTelefono') as HTMLInputElement;
+    const countryEl = document.getElementById('diagCountryCode') as HTMLSelectElement;
+    const correoError = document.getElementById('diagCorreoError');
+    const telefonoError = document.getElementById('diagTelefonoError');
     const submitBtn = document.getElementById('diagSubmitBtn') as HTMLButtonElement | null;
 
-    if (!nameEl || !phoneEl) return;
-
-    nameEl.classList.remove('diag-error');
-    phoneEl.classList.remove('diag-error');
-    contactEl?.classList.remove('diag-error');
+    nombreEl.classList.remove('diag-error');
+    correoEl.classList.remove('diag-error');
+    telefonoEl.classList.remove('diag-error');
+    correoError?.classList.add('diag-hidden');
+    telefonoError?.classList.add('diag-hidden');
 
     let valid = true;
-    if (!nameEl.value.trim()) { nameEl.classList.add('diag-error'); valid = false; }
-    if (!phoneEl.value.trim()) { phoneEl.classList.add('diag-error'); valid = false; }
+    if (!nombreEl.value.trim()) { nombreEl.classList.add('diag-error'); valid = false; }
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(correoEl.value.trim())) {
+      correoEl.classList.add('diag-error');
+      correoError?.classList.remove('diag-hidden');
+      valid = false;
+    }
+
+    const phoneDigits = telefonoEl.value.replace(/\D/g, '');
+    if (phoneDigits.length < 7 || phoneDigits.length > 12) {
+      telefonoEl.classList.add('diag-error');
+      telefonoError?.classList.remove('diag-hidden');
+      valid = false;
+    }
+
     if (!valid) return;
+
+    answers.nombre = nombreEl.value.trim();
+    answers.correo = correoEl.value.trim();
+    answers.telefono = `${countryEl.value}${phoneDigits}`;
 
     if (submitBtn) { submitBtn.textContent = 'Calculando…'; submitBtn.disabled = true; }
 
-    const lost = calcLostSales();
-    const insight = buildInsight(lost);
-    const waText = encodeURIComponent(
-      `Hola, hice el diagnóstico de conversión en su página y me salió que mi tienda podría estar perdiendo ${lost} ventas al mes. Me gustaría hablar sobre cómo mejorar eso.`
-    );
-    const waUrl = `https://wa.me/${PHONE}?text=${waText}`;
-
+    const { chatsSinRespuestaDia, chatsSinRespuestaMes, tasaCierre } = buildMetrics();
     const payload = {
-      nombre: nameEl.value.trim(),
-      telefono: phoneEl.value.trim(),
-      email: contactEl?.value.trim() ?? '',
-      visitas_dia: answers.visits,
-      tasa_conversion: answers.rate,
-      recuperacion_carrito: answers.cartRecovery,
-      ventas_perdidas_estimadas: lost,
-      fecha: new Date().toISOString(),
+      pauta_activa: answers.pautaActiva,
+      chats_llegan: answers.chatsLlegan,
+      chats_respondidos: answers.chatsRespondidos,
+      ventas_cerradas: answers.ventasCerradas,
+      ticket_promedio_rango: answers.ticketRango,
+      chats_sin_respuesta_dia: chatsSinRespuestaDia,
+      chats_sin_respuesta_mes: chatsSinRespuestaMes,
+      tasa_cierre: tasaCierre,
+      nombre: answers.nombre,
+      correo: answers.correo,
+      telefono: answers.telefono,
+      timestamp: new Date().toISOString(),
     };
 
     try {
@@ -454,20 +747,12 @@
           body: JSON.stringify(payload),
         });
       }
-
-      const numEl = document.getElementById('diagResultNumber');
-      const insightEl = document.getElementById('diagResultInsight');
-      const ctaEl = document.getElementById('diagResultCTA') as HTMLAnchorElement | null;
-      if (numEl) numEl.textContent = String(lost);
-      if (insightEl) insightEl.textContent = insight;
-      if (ctaEl) ctaEl.href = waUrl;
-      showStep(4);
-    } catch {
-      const altNum = document.getElementById('diagResultNumberAlt');
-      const altCta = document.getElementById('diagResultCTAAlt') as HTMLAnchorElement | null;
-      if (altNum) altNum.textContent = String(lost);
-      if (altCta) altCta.href = waUrl;
-      showStep(5);
+    } catch (err) {
+      console.error('Diagnostic webhook error', err);
     }
+
+    if (submitBtn) { submitBtn.textContent = 'Ver mi resultado'; submitBtn.disabled = false; }
+    renderResult();
+    showStep(6);
   });
 </script>

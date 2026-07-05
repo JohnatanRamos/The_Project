@@ -2,8 +2,8 @@
 import Hero from "../components/home/Hero.astro";
 import Layout from "../layouts/Layout.astro";
 import Diagnostic from "../components/home/Diagnostic.astro";
-import ValueProps from "../components/home/ValueProps.astro";
-import InvestmentStats from "../components/shared/InvestmentStats.astro";
+import Includes from "../components/home/Includes.astro";
+import Pricing from "../components/home/Pricing.astro";
 import Process from "../components/home/Process.astro";
 import FAQ from "../components/home/FAQ.astro";
 import CTA from "../components/home/CTA.astro";
@@ -14,11 +14,11 @@ const pageDescription =
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <!-- <Diagnostic /> -->
+  <Diagnostic />
   <main class="pt-20 relative z-10">
     <Hero />
-    <ValueProps />
-    <InvestmentStats />
+    <Includes />
+    <Pricing />
     <Process />
     <FAQ />
     <CTA />
