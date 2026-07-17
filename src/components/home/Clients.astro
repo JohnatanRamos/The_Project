@@ -1,3 +1,30 @@
+---
+import iconSocialClub from "../../assets/icons_clients/ÍCONO_SOCIAL_CLUB.svg";
+import logoBisu from "../../assets/icons_clients/LOGO_BISUMEDELLIN.avif";
+import logoLucesLed from "../../assets/icons_clients/logo_luces_led_medellin.webp";
+import logoRitmo from "../../assets/icons_clients/LOGO_RITMO.svg";
+import logoSegurex from "../../assets/icons_clients/logo_segurex.webp";
+import logoServirpro from "../../assets/icons_clients/logo_servirpro.png";
+import logoSunnyKids from "../../assets/icons_clients/logos_sunny_kids.webp";
+
+// Los logos "circle" son ícono/insignia circular (mismo ancho y alto);
+// se muestran más grandes para igualar el peso visual de los logotipos horizontales.
+const clients = [
+  { name: "Social Club", image: iconSocialClub, shape: "circle" },
+  { name: "Bisu Medellín", image: logoBisu, shape: "circle" },
+  { name: "Luces LED Medellín", image: logoLucesLed, shape: "wordmark" },
+  { name: "Ritmo Vivo", image: logoRitmo, shape: "circle" },
+  { name: "Segurex", image: logoSegurex, shape: "wordmark" },
+  { name: "ServirPro Seguros", image: logoServirpro, shape: "wordmark" },
+  { name: "Sunny Kids Club", image: logoSunnyKids, shape: "wordmark" },
+].map(({ name, image, shape }) => ({ name, src: image.src, shape }));
+
+const imgClass = (shape: string) =>
+  shape === "circle"
+    ? "max-h-14 sm:max-h-16 w-auto object-contain"
+    : "max-h-9 sm:max-h-12 w-auto object-contain";
+---
+
 <!-- Clients Section -->
 <section id="clients" class="pt-10 py-20 md:pt-20">
     <div class="container mx-auto px-6">
@@ -8,20 +35,20 @@
         <div class="glass-card py-8 overflow-hidden animate-on-scroll delay-200 [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
             <div class="flex w-max animate-scroll-left hover:[animation-play-state:paused]">
                 <!-- Logos - Set 1 -->
-                <div class="flex-shrink-0 flex items-center justify-center space-x-24 px-12">
-                    <div class="text-2xl font-semibold text-accent/80" title="Nexus Corp">NEXUS</div>
-                    <div class="text-2xl font-semibold text-accent/80" title="QuantumLeap Solutions">QuantumLeap</div>
-                    <div class="text-2xl font-semibold text-accent/80" title="Stellar Innovations">STELLAR</div>
-                    <div class="text-2xl font-semibold text-accent/80" title="Acme Co.">ACME Co.</div>
-                    <div class="text-2xl font-semibold text-accent/80" title="Innovate Group">Innovate</div>
+                <div class="flex-shrink-0 flex items-center justify-center space-x-10 px-5">
+                    {clients.map((client) => (
+                        <div class="flex-shrink-0 h-16 sm:h-20 min-w-[8rem] flex items-center justify-center px-6" title={client.name}>
+                            <img src={client.src} alt={client.name} class={imgClass(client.shape)} />
+                        </div>
+                    ))}
                 </div>
                 <!-- Logos - Set 2 (Duplicated for seamless loop) -->
-                <div class="flex-shrink-0 flex items-center justify-center space-x-24 px-12" aria-hidden="true">
-                   <div class="text-2xl font-semibold text-accent/80" title="Nexus Corp">NEXUS</div>
-                   <div class="text-2xl font-semibold text-accent/80" title="QuantumLeap Solutions">QuantumLeap</div>
-                   <div class="text-2xl font-semibold text-accent/80" title="Stellar Innovations">STELLAR</div>
-                   <div class="text-2xl font-semibold text-accent/80" title="Acme Co.">ACME Co.</div>
-                   <div class="text-2xl font-semibold text-accent/80" title="Innovate Group">Innovate</div>
+                <div class="flex-shrink-0 flex items-center justify-center space-x-10 px-5" aria-hidden="true">
+                    {clients.map((client) => (
+                        <div class="flex-shrink-0 h-16 sm:h-20 min-w-[8rem] flex items-center justify-center px-6">
+                            <img src={client.src} alt="" class={imgClass(client.shape)} loading="lazy" />
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
