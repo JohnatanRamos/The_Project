@@ -1,8 +1,4 @@
 ---
-import data from "../../config/phone_messages.json";
-
-const phone = data.phone_number;
-const online_stores = encodeURIComponent(data.online_stores);
 ---
 
 <section id="precios" class="py-20 pt-10 md:pt-20 bg-secondary/10">
@@ -106,9 +102,9 @@ const online_stores = encodeURIComponent(data.online_stores);
 
         <!-- CTA: its own moment, separate from the info above -->
         <div class="cta-block animate-on-scroll delay-400">
-          <a href={`https://wa.me/${phone}?text=${online_stores}`} target="_blank" class="btn btn-primary btn-wave w-full text-lg">
+          <button type="button" id="pricingDiagBtn" class="btn btn-primary btn-wave w-full text-lg">
             Diagnóstico gratis · 15 min
-          </a>
+          </button>
           <p class="mt-4 text-sm text-accent opacity-70">
             Sin compromiso — te digo si tu volumen justifica automatizar o no
           </p>

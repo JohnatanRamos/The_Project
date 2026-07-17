@@ -1,8 +1,4 @@
---- 
-import data from "../../config/phone_messages.json";
-
-const phone = data.phone_number;
-const default_message = encodeURIComponent(data.default_message);
+---
 ---
 
 <header class="bg-secondary/50 backdrop-blur-lg fixed w-full top-0 z-50">
@@ -11,7 +7,7 @@ const default_message = encodeURIComponent(data.default_message);
             <img src="/Logo Novalux.svg" alt="Novalux" class="h-8 md:h-10" />
         </a>
         <div class="hidden md:flex space-x-8 items-center">
-            <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="btn btn-sm btn-primary">Contáctanos</a>
+            <button type="button" id="headerDiagBtn" class="btn btn-sm btn-primary">Contáctanos</button>
         </div>
         <div class="md:hidden">
             <button id="menu-btn" class="focus:outline-none">
@@ -22,7 +18,7 @@ const default_message = encodeURIComponent(data.default_message);
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden">
          <a href="ecommerce" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Tiendas Online</a>
-         <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Contáctanos</a>
+         <button type="button" id="headerDiagBtnMobile" class="mobile-link block w-full text-left py-2 px-6 text-sm hover:bg-secondary">Contáctanos</button>
     </div>
 </header>
 
