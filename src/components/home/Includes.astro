@@ -81,7 +81,7 @@ const first = features[0];
     </div>
 
     <!-- List + dynamic panel -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-14 items-start animate-on-scroll">
+    <div id="ecomIncludesGrid" class="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_340px] gap-8 md:gap-14 items-center animate-on-scroll">
       <!-- List -->
       <div class="flex flex-col gap-2">
         {features.map((feature, index) => (
@@ -147,29 +147,31 @@ const first = features[0];
     width: 100%;
     text-align: left;
     padding: 0.75rem 0.875rem 0.75rem 1rem;
-    background: rgba(28, 93, 95, 0.25);
-    border: 1px solid rgba(84, 197, 197, 0.15);
+    background: rgba(28, 93, 95, 0.12);
+    border: 1px solid transparent;
     border-left: 3px solid transparent;
     border-radius: 0.75rem;
     cursor: pointer;
     font-family: inherit;
-    transition: background 0.25s ease, border-color 0.25s ease;
+    opacity: 0.55;
+    transition: background 0.25s ease, border-color 0.25s ease, opacity 0.25s ease;
   }
 
   .ecom-feature-trigger:hover {
-    background: rgba(28, 93, 95, 0.4);
-    border-color: rgba(84, 197, 197, 0.3);
+    opacity: 0.85;
   }
 
   .ecom-feature-trigger:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
+    opacity: 1;
   }
 
   .ecom-feature-trigger.is-active {
     background: rgba(28, 93, 95, 0.55);
     border-color: rgba(84, 197, 197, 0.3);
     border-left-color: var(--color-primary);
+    opacity: 1;
   }
 
   .ecom-feature-icon {
@@ -222,6 +224,7 @@ const first = features[0];
     position: relative;
     width: 100%;
     max-width: 340px;
+    margin-inline: auto;
     aspect-ratio: 4 / 5;
     border-radius: 1.5rem;
     overflow: hidden;
@@ -289,6 +292,13 @@ const first = features[0];
   const triggers = document.querySelectorAll<HTMLButtonElement>(".ecom-feature-trigger");
   const desktopPanel = document.getElementById("ecomDesktopPanel");
   const desktopImg = document.getElementById("ecomPanelImg") as HTMLImageElement | null;
+  const grid = document.getElementById("ecomIncludesGrid");
+  const featureIds = Array.from(triggers).map((trigger) => trigger.dataset.featureId ?? "");
+  const AUTOPLAY_DELAY = 4000;
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let currentIndex = 0;
+  let autoplayTimer: number | undefined;
 
   function activate(id: string) {
     let activeTrigger: HTMLButtonElement | null = null;
@@ -317,10 +327,44 @@ const first = features[0];
     }, 200);
   }
 
-  triggers.forEach((trigger) => {
+  function stopAutoplay() {
+    window.clearInterval(autoplayTimer);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    if (prefersReducedMotion || featureIds.length < 2) return;
+    autoplayTimer = window.setInterval(() => {
+      currentIndex = (currentIndex + 1) % featureIds.length;
+      activate(featureIds[currentIndex]);
+    }, AUTOPLAY_DELAY);
+  }
+
+  triggers.forEach((trigger, index) => {
     trigger.addEventListener("click", () => {
       const id = trigger.dataset.featureId;
-      if (id) activate(id);
+      if (!id) return;
+      currentIndex = index;
+      activate(id);
+      startAutoplay();
+    });
+
+    trigger.addEventListener("mouseenter", () => {
+      const id = trigger.dataset.featureId;
+      if (!id) return;
+      currentIndex = index;
+      activate(id);
     });
   });
+
+  grid?.addEventListener("mouseenter", stopAutoplay);
+  grid?.addEventListener("mouseleave", startAutoplay);
+  grid?.addEventListener("focusin", stopAutoplay);
+  grid?.addEventListener("focusout", startAutoplay);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopAutoplay();
+    else startAutoplay();
+  });
+
+  startAutoplay();
 </script>
