@@ -1,18 +1,13 @@
 ---
-import data from "../../config/phone_messages.json";
-
-const phone = data.phone_number;
-const default_message = encodeURIComponent(data.default_message);
-// CTA.astro
 ---
 
 <!-- CTA Section -->
 <section id="contact" class="pt-10 py-20 md:pt-20">
     <div class="container mx-auto px-6">
         <div class="glass-card p-10 md:p-16 rounded-3xl text-center animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Inicia tu <span class="gradient-text">transformación digital</span> hoy mismo</h2>
-            <p class="text-lg text-accent mb-8 max-w-2xl mx-auto">No esperes más para llevar tu negocio al siguiente nivel. Contáctanos para una consulta gratuita.</p>
-            <a href={`https://wa.me/${phone}?text=${default_message}`} target="_blank" class="btn btn-lg btn-primary">Agendar consulta gratuita</a>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Tu volumen de pedidos <span class="gradient-text">justifica automatizar?</span></h2>
+            <p class="text-lg text-accent mb-8 max-w-2xl mx-auto">Diagnóstico operativo gratis de 15 min: te digo si tu volumen de pedidos justifica automatizar o no.</p>
+            <button type="button" id="ctaDiagBtn" class="btn btn-lg btn-primary btn-wave">Diagnóstico gratis · 15 min</button>
         </div>
     </div>
 </section>
