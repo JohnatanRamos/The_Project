@@ -162,6 +162,29 @@ body {
   box-shadow: 0 0 15px rgba(84, 197, 197, 0.5);
 }
 
+/* --- Constant wave/ripple for free-diagnostic CTAs --- */
+@keyframes btn-wave-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(84, 197, 197, 0.75);
+  }
+
+  70% {
+    box-shadow: 0 0 0 26px rgba(84, 197, 197, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(84, 197, 197, 0);
+  }
+}
+
+.btn-wave {
+  animation: btn-wave-pulse 1.8s ease-out infinite;
+}
+
+.btn-wave:hover {
+  animation-play-state: paused;
+}
+
 .btn-secondary {
   border: 2px solid var(--color-primary);
   color: var(--color-primary);
