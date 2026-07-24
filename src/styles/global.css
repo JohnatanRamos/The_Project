@@ -247,11 +247,11 @@ body {
   animation: scroll-left 40s linear infinite;
 }
 
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
   .animate-scroll-left {
     animation-duration: 18s;
   }
-}
+} */
 
 /* --- Scroll Animations --- */
 .animate-on-scroll {
