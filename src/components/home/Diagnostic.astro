@@ -125,9 +125,9 @@
                 <option value="+1">🇺🇸 +1</option>
                 <option value="+34">🇪🇸 +34</option>
               </select>
-              <input id="diagTelefono" type="tel" inputmode="numeric" class="diag-input" placeholder="300 000 0000" autocomplete="tel" required />
+              <input id="diagTelefono" type="tel" inputmode="numeric" class="diag-input" placeholder="300 000 0000" autocomplete="tel" minlength="10" maxlength="10" required />
             </div>
-            <p class="diag-error-msg diag-hidden" id="diagTelefonoError">Ingresa un número de teléfono válido.</p>
+            <p class="diag-error-msg diag-hidden" id="diagTelefonoError">Ingresa un número de teléfono válido de 10 dígitos.</p>
           </div>
           <div class="diag-nav-row">
             <button type="button" class="diag-back-btn" data-back="4">← Atrás</button>
@@ -710,7 +710,7 @@
     }
 
     const phoneDigits = telefonoEl.value.replace(/\D/g, '');
-    if (phoneDigits.length < 7 || phoneDigits.length > 12) {
+    if (phoneDigits.length !== 10) {
       telefonoEl.classList.add('diag-error');
       telefonoError?.classList.remove('diag-hidden');
       valid = false;
