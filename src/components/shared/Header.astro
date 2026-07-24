@@ -2,42 +2,12 @@
 ---
 
 <header class="bg-secondary/50 backdrop-blur-lg fixed w-full top-0 z-50">
-    <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <nav class="container mx-auto px-6 py-4 flex justify-center md:justify-between items-center">
         <a href="/" class="flex items-center">
             <img src="/Logo Novalux.svg" alt="Novalux" class="h-8 md:h-10" />
         </a>
         <div class="hidden md:flex space-x-8 items-center">
             <button type="button" id="headerDiagBtn" class="btn btn-sm btn-primary">Contáctanos</button>
         </div>
-        <div class="md:hidden">
-            <button id="menu-btn" class="focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
-        </div>
     </nav>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden">
-         <a href="ecommerce" class="mobile-link block py-2 px-6 text-sm hover:bg-secondary">Tiendas Online</a>
-         <button type="button" id="headerDiagBtnMobile" class="mobile-link block w-full text-left py-2 px-6 text-sm hover:bg-secondary">Contáctanos</button>
-    </div>
 </header>
-
-<script>
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-    if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-    }
-
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (mobileMenu) {
-                mobileMenu.classList.add('hidden');
-            }
-        });
-    });
-</script>
