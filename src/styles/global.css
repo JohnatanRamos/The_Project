@@ -290,3 +290,41 @@ body {
 #timeline-progress {
   transition: height 0.4s ease-out;
 }
+
+/* --- Accesibilidad: foco visible y movimiento reducido --- */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+
+  .btn-wave,
+  .animate-scroll-left {
+    animation: none;
+  }
+
+  .animate-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .btn,
+  .glass-card {
+    transition: none;
+  }
+
+  .glass-card:hover {
+    transform: none;
+  }
+}
