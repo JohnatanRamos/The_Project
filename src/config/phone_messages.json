@@ -4,5 +4,6 @@
     "default_message": "Hola, estoy interesado en sus servicios. ¿Podrían proporcionarme más información?",
     "bulk_messages": "Hola, estoy interesado en sus servicios de mensajes masivos por WhatsApp. ¿Podrían proporcionarme más información?",
     "online_stores": "Hola, estoy interesado en sus servicios de tiendas en línea. ¿Podrían proporcionarme más información?",
-    "includes_online_stores": "Hola, quiero saber qué beneficios trae para mi negocio tener una tienda en línea."
+    "includes_online_stores": "Hola, quiero saber qué beneficios trae para mi negocio tener una tienda en línea.",
+    "plan_message": "Hola, me interesa el plan {plan}."
 }

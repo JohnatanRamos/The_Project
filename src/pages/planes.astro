@@ -1,0 +1,80 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Diagnostic from "../components/home/Diagnostic.astro";
+import PlanCard from "../components/planes/PlanCard.astro";
+import Accompaniment from "../components/planes/Accompaniment.astro";
+import AddOns from "../components/planes/AddOns.astro";
+import BeforeChoosing from "../components/planes/BeforeChoosing.astro";
+import AgentBlock from "../components/planes/AgentBlock.astro";
+import PlansCTA from "../components/planes/PlansCTA.astro";
+import { plans } from "../data/planes";
+
+// Activar cuando exista la página /agente-ia
+const SHOW_AGENT_BLOCK = false;
+
+const pageTitle = "Planes de tiendas online | Novalux";
+const pageDescription =
+  "Tiendas online en Shopify para marcas de moda y maquillaje. Planes desde $2.490.000 con automatizaciones por WhatsApp y acompañamiento mensual.";
+
+// Orden del DOM = orden en móvil (destacado primero). En escritorio va al centro.
+const orderedPlans = [...plans].sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Diagnostic />
+  <main class="pt-20 relative z-10">
+    <section class="pt-12 pb-16 md:pt-20 md:pb-20" aria-labelledby="planes-title">
+      <div class="container mx-auto px-6">
+        <h1 id="planes-title" class="text-3xl md:text-5xl font-bold text-white text-center mb-14 md:mb-20">
+          Planes de tiendas online
+        </h1>
+
+        <div class="plans-grid max-w-6xl mx-auto">
+          {orderedPlans.map((plan) => (
+            <div class:list={["plan-slot", `plan-slot--${plan.id}`]}>
+              <PlanCard plan={plan} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Accompaniment />
+    <AddOns />
+    <BeforeChoosing />
+    {SHOW_AGENT_BLOCK && <AgentBlock />}
+    <PlansCTA />
+  </main>
+</Layout>
+
+<style>
+  .plans-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .plan-slot {
+    display: flex;
+  }
+
+  .plan-slot > :global(.plan-card) {
+    flex: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .plans-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    .plan-slot--esencial {
+      order: 1;
+    }
+    .plan-slot--crecimiento {
+      order: 2;
+    }
+    .plan-slot--pro {
+      order: 3;
+    }
+  }
+</style>
