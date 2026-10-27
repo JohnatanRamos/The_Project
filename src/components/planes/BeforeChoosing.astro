@@ -1,0 +1,17 @@
+---
+import { beforeChoosing } from "../../data/planes";
+---
+
+<section class="py-16 md:py-20" aria-labelledby="antes-title">
+  <div class="container mx-auto px-6 max-w-4xl">
+    <h2 id="antes-title" class="text-3xl md:text-4xl font-bold text-white mb-8">Antes de elegir, ten en cuenta</h2>
+    <ul class="grid gap-6 md:grid-cols-3">
+      {beforeChoosing.map((item) => (
+        <li class="border-t-2 border-primary pt-4">
+          <p class="font-semibold text-white mb-2">{item.title}</p>
+          <p class="text-accent text-[0.9375rem] leading-relaxed">{item.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

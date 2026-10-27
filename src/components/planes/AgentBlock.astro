@@ -1,0 +1,29 @@
+---
+// Se renderiza solo cuando SHOW_AGENT_BLOCK = true en src/pages/planes.astro
+---
+
+<section class="py-10" aria-label="Agente de IA para WhatsApp">
+  <div class="container mx-auto px-6 max-w-4xl">
+    <p class="agent-box text-lg text-white">
+      ¿Quieres que tu WhatsApp venda solo, 24/7?
+      <a href="/agente-ia" class="agent-link">Conoce nuestro agente de IA.</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .agent-box {
+    padding: 1.5rem;
+    border: 1px dashed var(--color-primary);
+    border-radius: 1rem;
+  }
+  .agent-link {
+    color: var(--color-accent);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .agent-link:hover {
+    color: var(--color-white);
+  }
+</style>
