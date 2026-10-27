@@ -308,8 +308,7 @@ button:focus-visible {
     animation: none;
   }
 
-  .btn-wave,
-  .animate-scroll-left {
+  .btn-wave {
     animation: none;
   }
 
