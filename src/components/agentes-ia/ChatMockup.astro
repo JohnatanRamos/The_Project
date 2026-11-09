@@ -1,0 +1,102 @@
+---
+import { chat } from "../../data/agentes-ia";
+---
+
+<figure class="chat-wrap">
+  <div class="chat" role="img" aria-label="Conversación de ejemplo entre un cliente y Novi por WhatsApp">
+    <div class="chat-head" aria-hidden="true">
+      <span class="chat-avatar">N</span>
+      <span class="font-semibold text-white">Novi</span>
+    </div>
+
+    <ol class="chat-body">
+      {chat.map((m) => (
+        <li class:list={["bubble", m.from === "novi" ? "bubble--out" : "bubble--in"]}>
+          {m.text}
+          {m.from === "novi" && (
+            <svg class="bubble-check" viewBox="0 0 18 11" aria-hidden="true">
+              <path d="M1 6l3.5 3.5L11 2M7 9.5L8 10.5 16.5 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          )}
+        </li>
+      ))}
+    </ol>
+  </div>
+  <figcaption class="mt-4 text-center text-sm text-accent/70">Conversación de ejemplo</figcaption>
+</figure>
+
+<style>
+  .chat-wrap {
+    width: 100%;
+    max-width: 26rem;
+    margin-inline: auto;
+  }
+
+  .chat {
+    overflow: hidden;
+    border: 1px solid rgba(84, 197, 197, 0.25);
+    border-radius: 1.5rem;
+    background-color: #0b1416;
+    background-image: radial-gradient(rgba(84, 197, 197, 0.07) 1px, transparent 1px);
+    background-size: 14px 14px;
+    box-shadow: 0 20px 50px rgba(84, 197, 197, 0.15);
+  }
+
+  .chat-head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.1rem;
+    background: rgba(28, 93, 95, 0.85);
+  }
+
+  .chat-avatar {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+    color: var(--color-base);
+    font-weight: 700;
+  }
+
+  .chat-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem 1rem 1.5rem;
+  }
+
+  .bubble {
+    position: relative;
+    max-width: 85%;
+    padding: 0.6rem 0.85rem;
+    border-radius: 0.9rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    text-align: left;
+    color: var(--color-white);
+  }
+
+  .bubble--in {
+    align-self: flex-start;
+    background: #1f2c2e;
+    border-top-left-radius: 0.2rem;
+  }
+
+  .bubble--out {
+    align-self: flex-end;
+    padding-right: 2rem;
+    background: #135356;
+    border-top-right-radius: 0.2rem;
+  }
+
+  .bubble-check {
+    position: absolute;
+    right: 0.6rem;
+    bottom: 0.55rem;
+    width: 1rem;
+    color: var(--color-primary);
+  }
+</style>

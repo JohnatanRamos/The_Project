@@ -1,0 +1,31 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Diagnostic from "../components/home/Diagnostic.astro";
+import AgentHero from "../components/agentes-ia/AgentHero.astro";
+import HowItWorks from "../components/agentes-ia/HowItWorks.astro";
+import Objections from "../components/agentes-ia/Objections.astro";
+import Support from "../components/agentes-ia/Support.astro";
+import AgentPlans from "../components/agentes-ia/AgentPlans.astro";
+import ForWhom from "../components/agentes-ia/ForWhom.astro";
+import AgentFAQ from "../components/agentes-ia/AgentFAQ.astro";
+import AgentCTA from "../components/agentes-ia/AgentCTA.astro";
+
+const pageTitle = "Novi, agente de ventas con IA para WhatsApp | Novalux";
+const pageDescription =
+  "Novi atiende tu WhatsApp 24/7: responde, recomienda tus productos y cierra pedidos, sin que una persona tenga que atender cada venta.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <!-- El botón "Contáctanos" del header abre este modal -->
+  <Diagnostic />
+  <main class="pt-20 relative z-10">
+    <AgentHero />
+    <HowItWorks />
+    <Objections />
+    <Support />
+    <AgentPlans />
+    <ForWhom />
+    <AgentFAQ />
+    <AgentCTA />
+  </main>
+</Layout>

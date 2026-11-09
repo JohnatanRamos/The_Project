@@ -1,0 +1,48 @@
+---
+import ChatMockup from "./ChatMockup.astro";
+import { waBase } from "../../data/agentes-ia";
+---
+
+<section class="relative pt-12 pb-16 md:pt-20 md:pb-24" aria-labelledby="hero-title">
+  <div class="container mx-auto px-6 grid gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-16 items-center">
+    <div class="text-center lg:text-left">
+      <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-4 animate-on-scroll">
+        Conoce a Novi, tu agente de ventas en WhatsApp
+      </p>
+
+      <h1 id="hero-title" class="text-3xl md:text-5xl font-bold text-white leading-tight mb-6 animate-on-scroll">
+        Cada chat que no respondes es <span class="gradient-text">una venta que se va a la competencia.</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-accent max-w-2xl mx-auto lg:mx-0 mb-8 animate-on-scroll delay-100">
+        Novi atiende tu WhatsApp 24/7: responde, recomienda tus productos y cierra pedidos, <b class="text-white">sin que una persona tenga que atender cada venta.</b>
+      </p>
+
+      <div class="flex flex-wrap justify-center lg:justify-start gap-3 animate-on-scroll delay-200">
+        <a href={waBase} target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-wave">Agenda una demo</a>
+        <a href="#planes" class="btn btn-secondary">Ver planes</a>
+      </div>
+
+      <p class="guarantee mt-6 mx-auto lg:mx-0 animate-on-scroll delay-300">
+        <svg class="shrink-0 w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span><b class="text-white">Garantía:</b> 14 días desde que Novi sale en vivo, o te devolvemos la implementación.</span>
+      </p>
+    </div>
+
+    <div class="animate-on-scroll delay-200">
+      <ChatMockup />
+    </div>
+  </div>
+</section>
+
+<style>
+  .guarantee {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    max-width: 32rem;
+    font-size: 0.9375rem;
+    color: var(--color-accent);
+    text-align: left;
+  }
+</style>

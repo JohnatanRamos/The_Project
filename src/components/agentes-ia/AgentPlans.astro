@@ -1,0 +1,220 @@
+---
+import { agentPlans, waBase, waPlan } from "../../data/agentes-ia";
+
+// Orden del DOM = orden en móvil (destacado primero). En escritorio va al centro.
+const ordered = [...agentPlans].sort((a, b) => Number(!!b.featured) - Number(!!a.featured));
+const desktopOrder: Record<string, number> = { esencial: 1, crecimiento: 2, ultimate: 3 };
+---
+
+<section id="planes" class="py-16 md:py-20 scroll-mt-24" aria-labelledby="planes-title">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-10 max-w-3xl mx-auto">
+      <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3 animate-on-scroll">Planes</p>
+      <h2 id="planes-title" class="text-3xl md:text-4xl font-bold text-white mb-6 animate-on-scroll delay-100">
+        Elige el plan según cuántos chats recibe tu negocio
+      </h2>
+    </div>
+
+    <p class="impl max-w-4xl mx-auto mb-14 md:mb-20 animate-on-scroll">
+      <b class="text-white">Implementación: $390.000, pago único.</b> Incluye conexión de tu WhatsApp, carga de productos, integración con Shopify, flujo de atención, usuarios y equipos, notificaciones y capacitación de 1 hora.
+    </p>
+
+    <div class="plans-grid max-w-6xl mx-auto">
+      {ordered.map((plan) => (
+        <article
+          class:list={["plan-card", { "plan-card--featured": plan.featured }]}
+          style={`--lg-order: ${desktopOrder[plan.id]}`}
+          aria-labelledby={`plan-${plan.id}`}
+        >
+          {plan.badge && <p class="plan-badge">{plan.badge}</p>}
+          <h3 id={`plan-${plan.id}`} class="text-2xl font-bold text-white">{plan.name}</h3>
+          <p class="mt-4 mb-6 text-white">
+            <span class="plan-price font-bold leading-none">{plan.price}</span><span class="text-accent">/mes</span>
+          </p>
+          <ul class="plan-list">
+            {plan.features.map((f) => <li>{f}</li>)}
+          </ul>
+          <div class="plan-action">
+            <a
+              href={waPlan(plan.name)}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={["btn w-full", plan.featured ? "btn-primary" : "btn-secondary"]}
+            >
+              {plan.cta}
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="enterprise max-w-6xl mx-auto mt-12 md:mt-16 animate-on-scroll">
+      <span class="enterprise-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-4h6v4"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg>
+      </span>
+      <div class="flex-1">
+        <h3 class="text-xl md:text-2xl font-bold text-white">Empresarial</h3>
+        <p class="mt-1 text-accent">más de 150 chats al día y usuarios sin límite.</p>
+      </div>
+      <a href={waBase} target="_blank" rel="noopener noreferrer" class="enterprise-btn btn btn-primary shrink-0">
+        Hablemos
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <p class="max-w-6xl mx-auto mt-6 text-sm text-accent/80 text-center">
+      18 créditos = 1 mensaje. Si se te acaban, recargas desde la plataforma en minutos.
+    </p>
+  </div>
+</section>
+
+<style>
+  .impl {
+    padding: 1.25rem 1.5rem;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 1rem;
+    background: rgba(28, 93, 95, 0.45);
+    color: var(--color-accent);
+    line-height: 1.6;
+  }
+
+  .plans-grid {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .plans-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      align-items: stretch;
+    }
+    .plan-card {
+      order: var(--lg-order);
+    }
+  }
+
+  .plan-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--color-secondary);
+    border-radius: 1.5rem;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .plan-card--featured {
+    border: 2px solid transparent;
+    background:
+      linear-gradient(rgb(14, 44, 45), rgb(14, 44, 45)) padding-box,
+      linear-gradient(135deg, var(--color-accent), var(--color-primary)) border-box;
+  }
+
+  @media (min-width: 1024px) {
+    .plan-card {
+      padding: 2.25rem 2rem;
+    }
+    .plan-card--featured {
+      margin-block: -1rem;
+      padding-block: 3.25rem;
+    }
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0.3rem 1rem;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    color: var(--color-base);
+    font-size: 0.875rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .plan-price {
+    font-size: 2.25rem;
+  }
+
+  .plan-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    color: var(--color-text);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+  .plan-list li {
+    position: relative;
+    padding-left: 1.6rem;
+  }
+  .plan-list li::before {
+    content: "";
+    position: absolute;
+    left: 0.15rem;
+    top: 0.45em;
+    width: 0.8rem;
+    height: 0.45rem;
+    border-left: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    transform: rotate(-45deg);
+  }
+
+  .plan-action {
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+
+  .enterprise {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.75rem 1.5rem;
+    border: 1px solid rgba(84, 197, 197, 0.35);
+    border-radius: 1.5rem;
+    background:
+      radial-gradient(120% 140% at 0% 0%, rgba(84, 197, 197, 0.18), transparent 55%),
+      rgba(0, 0, 0, 0.55);
+  }
+  @media (min-width: 768px) {
+    .enterprise {
+      flex-direction: row;
+      align-items: center;
+      gap: 1.75rem;
+      padding: 2rem 2.5rem;
+    }
+  }
+
+  .enterprise-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 1rem;
+    background: rgba(28, 93, 95, 0.7);
+    color: var(--color-accent);
+  }
+  .enterprise-icon svg {
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+
+  .enterprise-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .enterprise-btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    transition: transform 0.3s ease;
+  }
+  .enterprise-btn:hover svg {
+    transform: translateX(3px);
+  }
+</style>
