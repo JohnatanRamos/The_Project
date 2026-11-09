@@ -1,5 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import InicioHero from "../components/home/InicioHero.astro";
+import Solutions from "../components/home/Solutions.astro";
+import Diagnostic from "../components/online-store/Diagnostic.astro";
+import WhyNovalux from "../components/home/WhyNovalux.astro";
+import InicioCTA from "../components/home/InicioCTA.astro";
 
 const pageTitle = "Novalux";
 const pageDescription =
@@ -7,5 +12,23 @@ const pageDescription =
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <main class="pt-20 relative z-10"></main>
+  <main class="pt-20 relative z-10">
+    <InicioHero />
+    <Solutions />
+
+    <!-- Diagnóstico inline: el botón "Contáctanos" del header hace scroll hasta aquí -->
+    <section id="diagnostico" class="py-16 md:py-20">
+      <div class="container mx-auto px-6">
+        <Diagnostic
+          inline
+          recommend
+          title="¿Cuántas ventas se te están escapando por WhatsApp?"
+          subtitle="Responde [6/7] preguntas en 1 minuto y te decimos qué solución le sirve más a tu negocio."
+        />
+      </div>
+    </section>
+
+    <WhyNovalux />
+    <InicioCTA />
+  </main>
 </Layout>
