@@ -1,26 +1,11 @@
 ---
-import Hero from "../components/home/Hero.astro";
 import Layout from "../layouts/Layout.astro";
-import Diagnostic from "../components/home/Diagnostic.astro";
-import Includes from "../components/home/Includes.astro";
-import Pricing from "../components/home/Pricing.astro";
-import Process from "../components/home/Process.astro";
-import FAQ from "../components/home/FAQ.astro";
-import CTA from "../components/home/CTA.astro";
 
-const pageTitle = "Novalux - Tiendas online";
+const pageTitle = "Novalux";
 const pageDescription =
-  "Servicio profesional de creación de tiendas online. Aumentas tus ventas con una tienda online.";
+  "Novalux - Tiendas online y agentes de IA para tu negocio.";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <Diagnostic />
-  <main class="pt-20 relative z-10">
-    <Hero />
-    <Includes />
-    <Pricing />
-    <Process />
-    <FAQ />
-    <CTA />
-  </main>
+  <main class="pt-20 relative z-10"></main>
 </Layout>
