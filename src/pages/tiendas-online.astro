@@ -1,0 +1,26 @@
+---
+import Hero from "../components/online-store/Hero.astro";
+import Layout from "../layouts/Layout.astro";
+import Diagnostic from "../components/shared/Diagnostic.astro";
+import Includes from "../components/online-store/Includes.astro";
+import Pricing from "../components/online-store/Pricing.astro";
+import Process from "../components/online-store/Process.astro";
+import FAQ from "../components/online-store/FAQ.astro";
+import CTA from "../components/online-store/CTA.astro";
+
+const pageTitle = "Novalux - Tiendas online";
+const pageDescription =
+  "Servicio profesional de creación de tiendas online. Aumentas tus ventas con una tienda online.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Diagnostic />
+  <main class="pt-20 relative z-10">
+    <Hero />
+    <Includes />
+    <Pricing />
+    <Process />
+    <FAQ />
+    <CTA />
+  </main>
+</Layout>

@@ -1,0 +1,58 @@
+---
+import { supportItems } from "../../data/agentes-ia";
+---
+
+<section class="py-16 md:py-20" aria-labelledby="soporte-title">
+  <div class="container mx-auto px-6">
+    <div class="support-box max-w-5xl mx-auto md:grid md:grid-cols-[1fr_1.2fr] md:gap-12 md:items-center animate-on-scroll">
+      <div>
+        <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3">Novalux y tu equipo</p>
+        <h2 id="soporte-title" class="text-3xl md:text-4xl font-bold text-white mb-4">
+          Soporte de personas, <span class="gradient-text">no de tickets</span>
+        </h2>
+        <p class="text-lg text-accent">Muchas plataformas te dejan solo después de venderte. Nosotros no.</p>
+      </div>
+
+      <ul class="check-list mt-8 md:mt-0">
+        {supportItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .support-box {
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--color-secondary);
+    border-radius: 1.5rem;
+    background: rgba(0, 0, 0, 0.55);
+  }
+  @media (min-width: 768px) {
+    .support-box {
+      padding: 3rem;
+    }
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: var(--color-text);
+    line-height: 1.55;
+  }
+  .check-list li {
+    position: relative;
+    padding-left: 1.9rem;
+  }
+  .check-list li::before {
+    content: "";
+    position: absolute;
+    left: 0.2rem;
+    top: 0.45em;
+    width: 0.85rem;
+    height: 0.45rem;
+    border-left: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    transform: rotate(-45deg);
+  }
+</style>

@@ -1,13 +1,32 @@
 ---
+const navLinks = [
+    { label: "Tiendas online", href: "/tiendas-online" },
+    { label: "Agentes IA", href: "/agentes-ia" },
+];
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
 ---
 
 <header class="bg-secondary/50 backdrop-blur-lg fixed w-full top-0 z-50">
-    <nav class="container mx-auto px-6 py-4 flex justify-center md:justify-between items-center">
-        <a href="/" class="flex items-center">
-            <img src="/Logo Novalux.svg" alt="Novalux" class="h-8 md:h-10" />
+    <nav class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center gap-4">
+        <a href="/" class="flex items-center shrink-0">
+            <img src="/Logo Novalux.svg" alt="Novalux" class="h-7 md:h-10" />
         </a>
-        <div class="hidden md:flex space-x-8 items-center">
-            <button type="button" id="headerDiagBtn" class="btn btn-sm btn-primary">Contáctanos</button>
+        <div class="flex items-center gap-4 md:gap-8">
+            {navLinks.map((link) => (
+                <a
+                    href={link.href}
+                    class:list={[
+                        "text-sm md:text-base font-medium whitespace-nowrap transition-colors hover:text-primary",
+                        currentPath === link.href ? "text-primary" : "text-accent",
+                    ]}
+                    aria-current={currentPath === link.href ? "page" : undefined}
+                >
+                    {link.label}
+                </a>
+            ))}
+            <div class="hidden md:block">
+                <button type="button" id="headerDiagBtn" class="btn btn-sm btn-primary">Contáctanos</button>
+            </div>
         </div>
     </nav>
 </header>

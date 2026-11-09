@@ -1,0 +1,73 @@
+---
+const reasons = [
+  {
+    title: "Soporte de personas, no de tickets",
+    text: "Te responde el equipo que construyó tu solución, en menos de 1 hora en horario de soporte.",
+    icon: "people",
+  },
+  {
+    title: "Proveedor tecnológico verificado por Meta",
+    text: "Conectamos tu WhatsApp de forma oficial, sin riesgo de bloqueos por herramientas no autorizadas.",
+    icon: "shield",
+  },
+  {
+    title: "Equipo en Medellín",
+    text: "Hablamos tu idioma, entendemos tu mercado y puedes reunirte con nosotros.",
+    icon: "pin",
+  },
+];
+---
+
+<section class="py-16 md:py-20" aria-labelledby="por-que-title">
+  <div class="container mx-auto px-6">
+    <h2 id="por-que-title" class="text-3xl md:text-4xl font-bold text-white text-center mb-10 md:mb-14 animate-on-scroll">
+      Con <span class="gradient-text">Novalux</span> tienes...
+    </h2>
+
+    <div class="grid gap-6 md:grid-cols-3 max-w-6xl mx-auto">
+      {reasons.map((r, i) => (
+        <div class:list={["reason animate-on-scroll", i === 1 && "delay-100", i === 2 && "delay-200"]}>
+          <div class="reason-icon" aria-hidden="true">
+            {r.icon === "people" && (
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            )}
+            {r.icon === "shield" && (
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+            )}
+            {r.icon === "pin" && (
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            )}
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">{r.title}</h3>
+          <p class="text-accent leading-relaxed">{r.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .reason {
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--color-secondary);
+    border-radius: 1.5rem;
+    background: rgba(0, 0, 0, 0.55);
+  }
+  @media (min-width: 768px) {
+    .reason {
+      padding: 2.25rem 2rem;
+    }
+  }
+
+  .reason-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 1.25rem;
+    border-radius: 9999px;
+    background: rgba(84, 197, 197, 0.12);
+    color: var(--color-primary);
+  }
+</style>

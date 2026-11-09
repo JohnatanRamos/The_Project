@@ -1,26 +1,34 @@
 ---
-import Hero from "../components/home/Hero.astro";
 import Layout from "../layouts/Layout.astro";
-import Diagnostic from "../components/home/Diagnostic.astro";
-import Includes from "../components/home/Includes.astro";
-import Pricing from "../components/home/Pricing.astro";
-import Process from "../components/home/Process.astro";
-import FAQ from "../components/home/FAQ.astro";
-import CTA from "../components/home/CTA.astro";
+import Diagnostic from "../components/shared/Diagnostic.astro";
+import InicioHero from "../components/home/InicioHero.astro";
+import Solutions from "../components/home/Solutions.astro";
+import WhyNovalux from "../components/home/WhyNovalux.astro";
+import InicioCTA from "../components/home/InicioCTA.astro";
 
-const pageTitle = "Novalux - Tiendas online";
+const pageTitle = "Novalux";
 const pageDescription =
-  "Servicio profesional de creación de tiendas online. Aumentas tus ventas con una tienda online.";
+  "Novalux - Tiendas online y agentes de IA para tu negocio.";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-  <Diagnostic />
   <main class="pt-20 relative z-10">
-    <Hero />
-    <Includes />
-    <Pricing />
-    <Process />
-    <FAQ />
-    <CTA />
+    <InicioHero />
+    <Solutions />
+
+    <!-- Diagnóstico inline: el botón "Contáctanos" del header hace scroll hasta aquí -->
+    <section id="diagnostico" class="py-16 md:py-20">
+      <div class="container mx-auto px-6">
+        <Diagnostic
+          inline
+          recommend
+          title="¿Cuántas ventas se te están escapando por WhatsApp?"
+          subtitle="Responde 7 preguntas en 1 minuto y te decimos qué solución le sirve más a tu negocio."
+        />
+      </div>
+    </section>
+
+    <WhyNovalux />
+    <InicioCTA />
   </main>
 </Layout>

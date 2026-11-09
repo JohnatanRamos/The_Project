@@ -1,30 +1,71 @@
 ---
 // Diagnostic.astro — Quiz de calificación + valor (fuga de chats sin responder)
 // Webhook: set PUBLIC_NOVALUX_DIAGNOSTIC_WEBHOOK_URL in your .env file
+//
+// Props:
+//   inline   → se renderiza embebido en la página (sin modal ni botón flotante).
+//              Los botones que abren el diagnóstico hacen scroll hasta él.
+//   title    → título del encabezado (por defecto "Diagnóstico gratuito")
+//   subtitle → texto bajo el título
+//   recommend → agrega la pregunta "Antes de comprar, tus clientes…" y muestra
+//               en el resultado qué solución le sirve más (Tienda online, Novi o ambas)
+interface Props {
+  inline?: boolean;
+  recommend?: boolean;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  inline = false,
+  recommend = false,
+  title = "Diagnóstico gratuito",
+  subtitle = `${recommend ? 7 : 6} preguntas. Tu diagnóstico personalizado.`,
+} = Astro.props;
 ---
 
-<!-- Floating trigger button -->
-<button id="diagOpenBtn" class="diag-float-btn" aria-label="Abrir diagnóstico gratuito">
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-  <span>Diagnóstico gratuito</span>
-</button>
+<!-- Floating trigger button (solo en modo modal) -->
+{!inline && (
+  <button id="diagOpenBtn" class="diag-float-btn" aria-label="Abrir diagnóstico gratuito">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+    <span>Diagnóstico gratuito</span>
+  </button>
+)}
 
-<!-- Modal overlay -->
-<div id="diagOverlay" class="diag-overlay diag-overlay-hidden" role="dialog" aria-modal="true" aria-labelledby="diagModalTitle">
+<!-- Modal overlay (o contenedor inline) -->
+<div
+  id="diagOverlay"
+  class:list={inline ? ["diag-inline"] : ["diag-overlay", "diag-overlay-hidden"]}
+  data-inline={inline ? "true" : undefined}
+  data-recommend={recommend ? "true" : undefined}
+  role={inline ? "region" : "dialog"}
+  aria-modal={inline ? undefined : "true"}
+  aria-labelledby="diagModalTitle"
+>
 
-  <!-- Backdrop -->
-  <div class="diag-backdrop" id="diagBackdrop"></div>
+  {!inline && <div class="diag-backdrop" id="diagBackdrop"></div>}
 
-  <!-- Modal panel -->
-  <div class="diag-modal-panel">
+  <div class={inline ? "diag-inline-panel" : "diag-modal-panel"}>
 
-    <button id="diagCloseBtn" class="diag-close-btn" aria-label="Cerrar">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    {!inline && (
+      <button id="diagCloseBtn" class="diag-close-btn" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    )}
 
     <div class="text-center mb-6">
-      <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3" id="diagModalTitle">Diagnóstico gratuito</p>
-      <p class="text-accent text-sm">6 preguntas. Tu diagnóstico personalizado.</p>
+      {inline ? (
+        <>
+          <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3">Diagnóstico gratuito</p>
+          <h2 class="diag-inline-title" id="diagModalTitle">{title}</h2>
+          <p class="text-accent text-base md:text-lg">{subtitle}</p>
+        </>
+      ) : (
+        <>
+          <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-3" id="diagModalTitle">{title}</p>
+          <p class="text-accent text-sm">{subtitle}</p>
+        </>
+      )}
     </div>
 
     <div class="diag-card p-6 md:p-8" id="diagCard">
@@ -33,7 +74,7 @@
       <div class="diag-progress mb-2" aria-hidden="true" id="diagProgressWrap">
         <div class="diag-progress-bar" id="diagProgressBar"></div>
       </div>
-      <p class="text-xs text-right mb-6" style="color: rgba(181,234,228,0.5)" id="diagStepLabel">Paso 1 de 6</p>
+      <p class="text-xs text-right mb-6" style="color: rgba(181,234,228,0.5)" id="diagStepLabel">Paso 1 de {recommend ? 7 : 6}</p>
 
       <!-- Paso 1: calificación -->
       <div class="diag-step" id="diag-step-0">
@@ -51,7 +92,7 @@
           <input id="diagChatsLlegan" type="number" inputmode="numeric" min="0" step="1" class="diag-input mb-2" placeholder="Ej: 40" required />
           <p class="diag-error-msg diag-hidden" id="diagChatsLleganError">Ingresa un número válido (0 o más).</p>
           <div class="diag-nav-row">
-            <button type="button" class="diag-back-btn" data-back="0">← Atrás</button>
+            <button type="button" class="diag-back-btn" data-back="diag-step-0">← Atrás</button>
             <button type="submit" class="btn btn-primary">Siguiente</button>
           </div>
         </form>
@@ -65,7 +106,7 @@
           <p class="diag-error-msg diag-hidden" id="diagChatsRespondidosError">Ingresa un número válido (0 o más).</p>
           <p class="diag-warning-msg diag-hidden" id="diagChatsRespondidosWarning">¿Seguro? Este número parece más alto que los chats que dijiste que te llegan.</p>
           <div class="diag-nav-row">
-            <button type="button" class="diag-back-btn" data-back="1">← Atrás</button>
+            <button type="button" class="diag-back-btn" data-back="diag-step-1">← Atrás</button>
             <button type="submit" class="btn btn-primary">Siguiente</button>
           </div>
         </form>
@@ -79,7 +120,7 @@
           <p class="diag-error-msg diag-hidden" id="diagVentasCerradasError">Ingresa un número válido (0 o más).</p>
           <p class="diag-warning-msg diag-hidden" id="diagVentasCerradasWarning">¿Seguro? Este número parece más alto que los chats que dijiste que alcanzas a responder.</p>
           <div class="diag-nav-row">
-            <button type="button" class="diag-back-btn" data-back="2">← Atrás</button>
+            <button type="button" class="diag-back-btn" data-back="diag-step-2">← Atrás</button>
             <button type="submit" class="btn btn-primary">Siguiente</button>
           </div>
         </form>
@@ -95,11 +136,25 @@
           <button class="diag-option" data-step="4" data-value="mas_300k">Más de $300.000</button>
         </div>
         <div class="diag-nav-row diag-nav-row-solo">
-          <button type="button" class="diag-back-btn" data-back="3">← Atrás</button>
+          <button type="button" class="diag-back-btn" data-back="diag-step-3">← Atrás</button>
         </div>
       </div>
 
-      <!-- Paso 6: contacto -->
+      {recommend && (
+        <div class="diag-step diag-hidden" id="diag-step-rec">
+          <p class="diag-question">Antes de comprar, tus clientes normalmente…</p>
+          <div class="diag-options">
+            <button class="diag-option" data-step="rec" data-value="tienda">Ya saben lo que quieren y solo preguntan precio o disponibilidad</button>
+            <button class="diag-option" data-step="rec" data-value="novi">Necesitan asesoría, comparar o resolver dudas</button>
+            <button class="diag-option" data-step="rec" data-value="combinacion">Un poco de ambas</button>
+          </div>
+          <div class="diag-nav-row diag-nav-row-solo">
+            <button type="button" class="diag-back-btn" data-back="diag-step-4">← Atrás</button>
+          </div>
+        </div>
+      )}
+
+      <!-- Contacto -->
       <div class="diag-step diag-hidden" id="diag-step-5">
         <form id="diagFormContact" novalidate>
           <p class="diag-question">¿A dónde te enviamos tu resultado?</p>
@@ -130,7 +185,7 @@
             <p class="diag-error-msg diag-hidden" id="diagTelefonoError">Ingresa un número de teléfono válido de 10 dígitos.</p>
           </div>
           <div class="diag-nav-row">
-            <button type="button" class="diag-back-btn" data-back="4">← Atrás</button>
+            <button type="button" class="diag-back-btn" data-back={recommend ? "diag-step-rec" : "diag-step-4"}>← Atrás</button>
             <button type="submit" id="diagSubmitBtn" class="btn btn-primary">Ver mi resultado</button>
           </div>
         </form>
@@ -141,11 +196,17 @@
         <div class="text-center">
           <p class="text-sm text-primary font-semibold uppercase tracking-wider mb-4">Tu diagnóstico</p>
           <p class="diag-result-text" id="diagResultText"></p>
+          <div id="diagRecWrap" class="diag-rec diag-hidden">
+            <p class="diag-rec-label">La solución que más te sirve</p>
+            <p class="diag-rec-title" id="diagRecTitle"></p>
+            <p class="diag-rec-text" id="diagRecText"></p>
+            <div class="diag-rec-links" id="diagRecLinks"></div>
+          </div>
           <div id="diagResultCTAWrap" class="diag-hidden">
             <a id="diagResultCTA" href="#" target="_blank" class="btn btn-primary" style="width:100%; display:block">Agenda tu sesión de 15 min</a>
           </div>
           <div id="diagResultNoCTAWrap" class="diag-hidden">
-            <p class="diag-no-cta-msg">Guarda este número — cuando actives pauta, esta fuga va a crecer. Te avisamos cuando tengamos cupo para negocios en tu etapa.</p>
+            <p class="diag-no-cta-msg" id="diagNoCtaMsg">Guarda este número — cuando actives pauta, esta fuga va a crecer. Te avisamos cuando tengamos cupo para negocios en tu etapa.</p>
           </div>
         </div>
       </div>
@@ -220,6 +281,25 @@
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
     scrollbar-width: thin;
     scrollbar-color: rgba(84,197,197,0.2) transparent;
+  }
+
+  /* ── Inline mode ── */
+  .diag-inline {
+    scroll-margin-top: 6rem; /* compensa el header fijo */
+  }
+
+  .diag-inline-panel {
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .diag-inline-title {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin-bottom: 0.75rem;
   }
 
   .diag-modal-panel::-webkit-scrollbar { width: 4px; }
@@ -429,14 +509,91 @@
     color: rgba(181, 234, 228, 0.75);
   }
 
+  /* ── Recomendación ── */
+  .diag-rec {
+    text-align: left;
+    border: 1.5px solid #54c5c5;
+    background: rgba(84, 197, 197, 0.1);
+    border-radius: 0.875rem;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .diag-rec-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #54c5c5;
+    margin-bottom: 0.35rem;
+  }
+
+  .diag-rec-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+
+  .diag-rec-text {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: rgba(224, 242, 241, 0.9);
+    margin-bottom: 1rem;
+  }
+
+  .diag-rec-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .diag-rec-links :global(a) {
+    color: #b5eae4;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .diag-rec-links :global(a:hover) { color: #ffffff; }
+
   .diag-hidden { display: none; }
 </style>
 
 <script>
   const WEBHOOK_URL: string = (import.meta.env.PUBLIC_NOVALUX_DIAGNOSTIC_WEBHOOK_URL as string) ?? '';
   const PHONE = '573003953980';
-  const TOTAL_STEPS = 6;
-  const STEP_IDS = ['diag-step-0', 'diag-step-1', 'diag-step-2', 'diag-step-3', 'diag-step-4', 'diag-step-5', 'diag-step-6'];
+  const HAS_REC = document.getElementById('diagOverlay')?.dataset.recommend === 'true';
+  // Orden de pasos; el último es el resultado
+  const STEP_IDS = [
+    'diag-step-0', 'diag-step-1', 'diag-step-2', 'diag-step-3', 'diag-step-4',
+    ...(HAS_REC ? ['diag-step-rec'] : []),
+    'diag-step-5', 'diag-step-6',
+  ];
+  const TOTAL_STEPS = STEP_IDS.length - 1;
+
+  type Solucion = 'tienda' | 'novi' | 'combinacion';
+  const RECOMENDACIONES: Record<Solucion, { titulo: string; texto: string; links: { label: string; href: string }[] }> = {
+    tienda: {
+      titulo: 'Tienda online',
+      texto: 'Tus clientes ya saben lo que quieren. Con una tienda online ven catálogo, precios y disponibilidad, y compran solos, sin esperar a que respondas el chat.',
+      links: [{ label: 'Ver tiendas online →', href: '/tiendas-online' }],
+    },
+    novi: {
+      titulo: 'Novi, agente de IA',
+      texto: 'Tus clientes necesitan asesoría antes de comprar. Novi responde dudas, compara opciones y acompaña la venta por WhatsApp 24/7, para que ningún chat se quede sin respuesta.',
+      links: [{ label: 'Conocer a Novi →', href: '/agentes-ia' }],
+    },
+    combinacion: {
+      titulo: 'Tienda online + Novi',
+      texto: 'Tienes de ambos tipos de cliente. La tienda atiende a los que ya saben qué quieren y Novi asesora por WhatsApp a los que tienen dudas, así no se te escapa ninguno.',
+      links: [
+        { label: 'Ver tiendas online →', href: '/tiendas-online' },
+        { label: 'Conocer a Novi →', href: '/agentes-ia' },
+      ],
+    },
+  };
 
   type Answers = {
     pautaActiva: boolean | null;
@@ -444,6 +601,7 @@
     chatsRespondidos: number | null;
     ventasCerradas: number | null;
     ticketRango: string;
+    tipoCliente: Solucion | '';
     nombre: string;
     correo: string;
     telefono: string;
@@ -455,6 +613,7 @@
     chatsRespondidos: null,
     ventasCerradas: null,
     ticketRango: '',
+    tipoCliente: '',
     nombre: '',
     correo: '',
     telefono: '',
@@ -465,9 +624,12 @@
   function highlightSelected(n: number) {
     const stepEl = document.getElementById(STEP_IDS[n]);
     if (!stepEl) return;
-    const value = n === 0
+    const id = STEP_IDS[n];
+    const value = id === 'diag-step-0'
       ? (answers.pautaActiva === null ? '' : (answers.pautaActiva ? 'si' : 'no'))
-      : n === 4 ? answers.ticketRango : null;
+      : id === 'diag-step-4' ? answers.ticketRango
+      : id === 'diag-step-rec' ? answers.tipoCliente
+      : null;
     if (value === null) return;
     stepEl.querySelectorAll<HTMLButtonElement>('.diag-option').forEach((btn) => {
       btn.classList.toggle('diag-option-selected', btn.dataset.value === value);
@@ -500,6 +662,7 @@
     answers.chatsRespondidos = null;
     answers.ventasCerradas = null;
     answers.ticketRango = '';
+    answers.tipoCliente = '';
     answers.nombre = '';
     answers.correo = '';
     answers.telefono = '';
@@ -525,12 +688,20 @@
     showStep(0);
   }
 
+  const IS_INLINE = document.getElementById('diagOverlay')?.dataset.inline === 'true';
+
   function openModal() {
-    document.getElementById('diagOverlay')?.classList.remove('diag-overlay-hidden');
+    const overlay = document.getElementById('diagOverlay');
+    if (IS_INLINE) {
+      overlay?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    overlay?.classList.remove('diag-overlay-hidden');
     document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
+    if (IS_INLINE) return;
     document.getElementById('diagOverlay')?.classList.add('diag-overlay-hidden');
     document.body.style.overflow = '';
     resetDiag();
@@ -555,11 +726,61 @@
 
   function renderResult() {
     const { chatsSinRespuestaDia, chatsSinRespuestaMes, tasaCierre } = buildMetrics();
+    const llegan = answers.chatsLlegan ?? 0;
+    const hayFuga = chatsSinRespuestaDia > 0;
+    const plural = (n: number, uno: string, varios: string) => (n === 1 ? uno : varios);
+    const uno = chatsSinRespuestaDia === 1;
+    const origen = answers.pautaActiva
+      ? (uno ? 'una conversación que ya pagaste con pauta y ni siquiera alcanzas a abrir' : 'conversaciones que ya pagaste con pauta y ni siquiera alcanzas a abrir')
+      : (uno ? 'un cliente interesado que ni siquiera alcanzas a abrir' : 'clientes interesados que ni siquiera alcanzas a abrir');
+
+    let resultHtml: string;
+    if (llegan === 0) {
+      // No llegan chats: no hay fuga que medir
+      resultHtml = `Con base en tus respuestas: hoy no te están llegando chats por WhatsApp, así que todavía no hay ventas escapándose por ahí. El reto está en <strong>generar conversaciones</strong>: cuando empiecen a llegar, tener cómo atenderlas rápido marca la diferencia.`;
+    } else if (!hayFuga) {
+      // Responde todo lo que le llega
+      resultHtml = `Con base en tus respuestas: alcanzas a responder <strong>todos</strong> los chats que te llegan (${llegan} al día) — muy bien.`
+        + (tasaCierre !== null
+          ? ` De esas conversaciones cierras el <strong>${tasaCierre}%</strong>, así que tu oportunidad no está en contestar más, sino en <strong>convertir más</strong> de lo que ya respondes: atender más rápido, hacer seguimiento a quienes no compraron y vender también fuera de horario.`
+          : '');
+    } else {
+      // Hay chats sin respuesta
+      resultHtml = `Con base en tus respuestas: todos los días se te ${plural(chatsSinRespuestaDia, 'queda', 'quedan')} <strong>${chatsSinRespuestaDia}</strong> ${plural(chatsSinRespuestaDia, 'chat', 'chats')} sin ninguna respuesta — ${origen}. Al mes, son aproximadamente <strong>${chatsSinRespuestaMes}</strong> conversaciones perdidas.`
+        + (tasaCierre !== null
+          ? ` De lo que sí respondes, cierras el <strong>${tasaCierre}%</strong> — así que la fuga no está en cómo vendes, está en lo que ni siquiera llegas a tocar.`
+          : '');
+    }
+
     const textEl = document.getElementById('diagResultText');
-    if (textEl) {
-      textEl.innerHTML = tasaCierre === null
-        ? `Con base en tus respuestas: todos los días se te quedan <strong>${chatsSinRespuestaDia}</strong> chats sin ninguna respuesta — conversaciones que ya pagaste con pauta y ni siquiera alcanzas a abrir.`
-        : `Con base en tus respuestas: todos los días se te quedan <strong>${chatsSinRespuestaDia}</strong> chats sin ninguna respuesta — conversaciones que ya pagaste con pauta y ni siquiera alcanzas a abrir. Al mes, son aproximadamente <strong>${chatsSinRespuestaMes}</strong> conversaciones perdidas. De lo que sí respondes, cierras el <strong>${tasaCierre}%</strong> — así que la fuga no está en cómo vendes, está en lo que ni siquiera llegas a tocar.`;
+    if (textEl) textEl.innerHTML = resultHtml;
+
+    const noCtaMsg = document.getElementById('diagNoCtaMsg');
+    if (noCtaMsg) {
+      noCtaMsg.textContent = hayFuga
+        ? 'Guarda este número — cuando actives pauta, esta fuga va a crecer. Te avisamos cuando tengamos cupo para negocios en tu etapa.'
+        : 'Cuando actives pauta, el volumen de chats va a crecer y responder a tiempo se vuelve clave. Te avisamos cuando tengamos cupo para negocios en tu etapa.';
+    }
+
+    const recWrap = document.getElementById('diagRecWrap');
+    const rec = HAS_REC && answers.tipoCliente ? RECOMENDACIONES[answers.tipoCliente] : null;
+    if (rec) {
+      const recTitle = document.getElementById('diagRecTitle');
+      const recText = document.getElementById('diagRecText');
+      const recLinks = document.getElementById('diagRecLinks');
+      if (recTitle) recTitle.textContent = rec.titulo;
+      if (recText) recText.textContent = rec.texto;
+      if (recLinks) {
+        recLinks.replaceChildren(...rec.links.map(({ label, href }) => {
+          const a = document.createElement('a');
+          a.href = href;
+          a.textContent = label;
+          return a;
+        }));
+      }
+      recWrap?.classList.remove('diag-hidden');
+    } else {
+      recWrap?.classList.add('diag-hidden');
     }
 
     const ctaWrap = document.getElementById('diagResultCTAWrap');
@@ -594,21 +815,19 @@
 
     const optionBtn = target.closest<HTMLElement>('.diag-option');
     if (optionBtn) {
-      const step = Number(optionBtn.dataset.step ?? -1);
+      const stepId = `diag-step-${optionBtn.dataset.step ?? ''}`;
       const value = optionBtn.dataset.value ?? '';
-      if (step === 0 && currentStep === 0) {
-        answers.pautaActiva = value === 'si';
-        showStep(1);
-      } else if (step === 4 && currentStep === 4) {
-        answers.ticketRango = value;
-        showStep(5);
-      }
+      if (stepId !== STEP_IDS[currentStep]) return;
+      if (stepId === 'diag-step-0') answers.pautaActiva = value === 'si';
+      else if (stepId === 'diag-step-4') answers.ticketRango = value;
+      else if (stepId === 'diag-step-rec') answers.tipoCliente = value as Solucion;
+      showStep(currentStep + 1);
       return;
     }
 
     const backBtn = target.closest<HTMLElement>('.diag-back-btn');
     if (backBtn) {
-      const back = Number(backBtn.dataset.back ?? -1);
+      const back = STEP_IDS.indexOf(backBtn.dataset.back ?? '');
       if (back >= 0) showStep(back);
     }
   });
@@ -627,7 +846,7 @@
     input.classList.remove('diag-error');
     errorEl?.classList.add('diag-hidden');
     answers.chatsLlegan = value;
-    showStep(2);
+    showStep(currentStep + 1);
   });
 
   // Paso 3: chats respondidos
@@ -653,7 +872,7 @@
     input.classList.remove('diag-error');
     errorEl?.classList.add('diag-hidden');
     answers.chatsRespondidos = value;
-    showStep(3);
+    showStep(currentStep + 1);
   });
 
   // Paso 4: ventas cerradas
@@ -679,7 +898,7 @@
     input.classList.remove('diag-error');
     errorEl?.classList.add('diag-hidden');
     answers.ventasCerradas = value;
-    showStep(4);
+    showStep(currentStep + 1);
   });
 
   // Paso 6: contacto + envío
@@ -732,6 +951,10 @@
       chats_respondidos: answers.chatsRespondidos,
       ventas_cerradas: answers.ventasCerradas,
       ticket_promedio_rango: answers.ticketRango,
+      ...(HAS_REC && {
+        tipo_cliente: answers.tipoCliente,
+        solucion_recomendada: answers.tipoCliente ? RECOMENDACIONES[answers.tipoCliente].titulo : '',
+      }),
       chats_sin_respuesta_dia: chatsSinRespuestaDia,
       chats_sin_respuesta_mes: chatsSinRespuestaMes,
       tasa_cierre: tasaCierre,
@@ -755,6 +978,6 @@
 
     if (submitBtn) { submitBtn.textContent = 'Ver mi resultado'; submitBtn.disabled = false; }
     renderResult();
-    showStep(6);
+    showStep(STEP_IDS.length - 1);
   });
 </script>

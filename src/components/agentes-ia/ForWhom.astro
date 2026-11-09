@@ -1,0 +1,55 @@
+---
+import { forWhom } from "../../data/agentes-ia";
+---
+
+<section class="py-16 md:py-20" aria-label="Para quién es Novi">
+  <div class="container mx-auto px-6">
+    <div class="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+      <div class="fit fit--yes animate-on-scroll">
+        <h2 class="text-2xl font-bold text-white mb-6">Novi es para ti si:</h2>
+        <ul class="space-y-4">
+          {forWhom.yes.map((item) => (
+            <li class="flex gap-3 text-[0.9375rem] leading-relaxed">
+              <span class="mark text-primary" aria-hidden="true">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="fit animate-on-scroll delay-100">
+        <h2 class="text-2xl font-bold text-white mb-6">Novi no es para ti si:</h2>
+        <ul class="space-y-4">
+          {forWhom.no.map((item) => (
+            <li class="flex gap-3 text-[0.9375rem] leading-relaxed text-accent/80">
+              <span class="mark text-accent/50" aria-hidden="true">✗</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fit {
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--color-secondary);
+    border-radius: 1.5rem;
+    background: rgba(0, 0, 0, 0.55);
+  }
+  .fit--yes {
+    border-color: rgba(84, 197, 197, 0.55);
+    background: rgba(28, 93, 95, 0.35);
+  }
+  @media (min-width: 768px) {
+    .fit {
+      padding: 2.5rem;
+    }
+  }
+  .mark {
+    flex-shrink: 0;
+    font-weight: 700;
+  }
+</style>

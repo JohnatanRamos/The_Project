@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Diagnostic from "../components/home/Diagnostic.astro";
+import Diagnostic from "../components/shared/Diagnostic.astro";
 import PlanCard from "../components/planes/PlanCard.astro";
 import Accompaniment from "../components/planes/Accompaniment.astro";
 import AddOns from "../components/planes/AddOns.astro";
@@ -9,8 +9,6 @@ import AgentBlock from "../components/planes/AgentBlock.astro";
 import PlansCTA from "../components/planes/PlansCTA.astro";
 import { plans } from "../data/planes";
 
-// Activar cuando exista la página /agente-ia
-const SHOW_AGENT_BLOCK = false;
 
 const pageTitle = "Planes de tiendas online | Novalux";
 const pageDescription =
@@ -42,7 +40,7 @@ const orderedPlans = [...plans].sort((a, b) => Number(!!b.featured) - Number(!!a
     <Accompaniment />
     <AddOns />
     <BeforeChoosing />
-    {SHOW_AGENT_BLOCK && <AgentBlock />}
+     <AgentBlock />
     <PlansCTA />
   </main>
 </Layout>

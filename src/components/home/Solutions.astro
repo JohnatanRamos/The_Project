@@ -1,0 +1,101 @@
+---
+const solutions = [
+  {
+    title: "Tienda online",
+    forWhom: "Para negocios con catálogo que quieren que el cliente compre solo.",
+    text: "Una tienda que muestra tus productos, cobra y confirma el pedido sin que una persona tenga que atender cada venta.",
+    link: { label: "Ver tiendas online", href: "/tiendas-online" },
+    icon: "store",
+  },
+  {
+    title: "Novi, agente de IA",
+    forWhom: "Para negocios que venden conversando por WhatsApp.",
+    text: "Responde, asesora y cierra pedidos en tu WhatsApp 24/7, con tu catálogo y tu forma de vender.",
+    link: { label: "Conocer a Novi", href: "/agentes-ia" },
+    icon: "chat",
+  },
+];
+---
+
+<section class="py-16 md:py-20" aria-label="Las dos soluciones de Novalux">
+  <div class="container mx-auto px-6">
+    <div class="grid gap-6 md:grid-cols-2 max-w-5xl mx-auto">
+      {solutions.map((s, i) => (
+        <article class:list={["glass-card solution-card animate-on-scroll", i === 1 && "delay-100"]}>
+          <div class="solution-icon" aria-hidden="true">
+            {s.icon === "store" ? (
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/></svg>
+            ) : (
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.8-.9L3 21l1.9-5.1A8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/><path d="M8 11h.01M12 11h.01M16 11h.01"/></svg>
+            )}
+          </div>
+
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">{s.title}</h2>
+          <p class="for-whom mb-4">{s.forWhom}</p>
+          <p class="text-accent leading-relaxed mb-8">{s.text}</p>
+
+          <a href={s.link.href} class="solution-link">
+            {s.link.label}
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </article>
+      ))}
+    </div>
+
+    <p class="text-center text-accent mt-10 animate-on-scroll">
+      ¿Tienes tienda y vendes por WhatsApp? <b class="text-white">Puedes combinar ambas.</b>
+    </p>
+  </div>
+</section>
+
+<style>
+  .solution-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .solution-card {
+      padding: 2.5rem;
+    }
+  }
+
+  .solution-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+    background: rgba(84, 197, 197, 0.12);
+    border: 1px solid rgba(84, 197, 197, 0.3);
+    color: var(--color-primary);
+  }
+
+  .for-whom {
+    padding: 0.75rem 1rem;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 0.75rem 0.75rem 0;
+    background: rgba(84, 197, 197, 0.1);
+    color: var(--color-white);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .solution-link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-start;
+    color: var(--color-primary);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    transition: gap 0.2s ease, color 0.2s ease;
+  }
+  .solution-link:hover {
+    color: var(--color-accent);
+    gap: 0.75rem;
+  }
+</style>
